@@ -17,6 +17,7 @@ import Learn from './pages/Learn';
 import Settings from './pages/Settings';
 import Schedule from './pages/Schedule';
 import Encyclopedia from './pages/Encyclopedia';
+import GrowthAnalytics from './pages/GrowthAnalytics';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -54,6 +55,7 @@ const AuthenticatedApp = () => {
         <Route path="/Settings" element={<Settings />} />
         <Route path="/Schedule" element={<Schedule />} />
         <Route path="/Encyclopedia" element={<Encyclopedia />} />
+        <Route path="/GrowthAnalytics" element={<GrowthAnalytics />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
