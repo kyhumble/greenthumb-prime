@@ -23,13 +23,15 @@ export default function Dashboard() {
   }, []);
 
   const { data: plants = [], refetch: refetchPlants } = useQuery({
-    queryKey: ['plants'],
-    queryFn: () => base44.entities.Plant.list('-created_date', 50),
+    queryKey: ['plants', user?.email],
+    queryFn: () => base44.entities.Plant.filter({ created_by: user.email }, '-created_date', 50),
+    enabled: !!user?.email,
   });
 
   const { data: diagnoses = [] } = useQuery({
-    queryKey: ['diagnoses'],
-    queryFn: () => base44.entities.Diagnosis.list('-created_date', 10),
+    queryKey: ['diagnoses', user?.email],
+    queryFn: () => base44.entities.Diagnosis.filter({ created_by: user.email }, '-created_date', 10),
+    enabled: !!user?.email,
   });
 
   const avgHealth = plants.length > 0
