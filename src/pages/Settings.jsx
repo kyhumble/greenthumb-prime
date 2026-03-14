@@ -116,6 +116,38 @@ export default function Settings() {
           Save Settings
         </Button>
       </div>
+
+      {/* Danger Zone */}
+      <div className="bg-white rounded-2xl border border-red-100 p-5 mt-6">
+        <h2 className="text-sm font-semibold text-red-600 mb-1">Danger Zone</h2>
+        <p className="text-xs text-gray-500 mb-4">Permanently delete your account and all associated data. This cannot be undone.</p>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive" size="sm">
+              <Trash2 className="w-4 h-4 mr-2" /> Delete Account
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will permanently delete your account, all your plants, diagnoses, and data. This action cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-red-600 hover:bg-red-700"
+                onClick={() => {
+                  toast.error('Account deletion is currently disabled. Please contact support.');
+                }}
+              >
+                Delete My Account
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </div>
   );
 }
