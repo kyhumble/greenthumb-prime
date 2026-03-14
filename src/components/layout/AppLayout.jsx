@@ -7,7 +7,7 @@ export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#FDF8F0]">
+    <div className="min-h-screen bg-[#F4F6F3]">
       {/* Desktop sidebar */}
       <div className="hidden md:block">
         <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />
