@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Leaf, Camera, Bug, BookOpen } from 'lucide-react';
+import { LayoutDashboard, Leaf, Camera, CalendarDays, BookMarked } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { path: '/Dashboard', label: 'Home', icon: LayoutDashboard },
   { path: '/Plants', label: 'Plants', icon: Leaf },
   { path: '/Diagnose', label: 'Diagnose', icon: Camera },
-  { path: '/Library', label: 'Library', icon: Bug },
-  { path: '/Learn', label: 'Learn', icon: BookOpen },
+  { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
+  { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
 ];
 
 export default function MobileNav() {
