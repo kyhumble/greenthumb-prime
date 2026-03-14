@@ -15,7 +15,7 @@ export default function MobileNav() {
   const location = useLocation();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 md:hidden">
       <div className="flex justify-around py-2">
         {navItems.map(item => {
           const isActive = location.pathname.startsWith(item.path);
@@ -25,7 +25,7 @@ export default function MobileNav() {
               to={item.path}
               className={cn(
                 "flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-colors",
-                isActive ? "text-[#16A34A]" : "text-gray-400"
+                isActive ? "text-[#1B4332]" : "text-gray-400"
               )}
             >
               <item.icon className="w-5 h-5" />

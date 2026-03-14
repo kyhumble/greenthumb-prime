@@ -10,15 +10,15 @@ export default function StatsCard({ title, value, subtitle, icon: Icon, color = 
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-gray-100">
+    <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs font-medium text-gray-400 tracking-wide">{title}</p>
-          <p className="text-2xl font-bold text-gray-900 mt-1">{value}</p>
-          {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
+          <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">{title}</p>
+          <p className="text-2xl font-bold text-[#1B4332] mt-1">{value}</p>
+          {subtitle && <p className="text-xs text-gray-500 mt-1">{subtitle}</p>}
         </div>
-        <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center", colors[color])}>
-          <Icon className="w-4 h-4" />
+        <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", colors[color])}>
+          <Icon className="w-5 h-5" />
         </div>
       </div>
     </div>

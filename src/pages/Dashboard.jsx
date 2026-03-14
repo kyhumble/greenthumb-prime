@@ -40,18 +40,18 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#1B4332]">
             Welcome back{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ''} 🌿
           </h1>
-          <p className="text-gray-400 text-sm mt-1">Here's how your garden is doing today</p>
+          <p className="text-gray-500 text-sm mt-1">Here's how your garden is doing today</p>
         </div>
         <div className="flex gap-2">
           <Link to="/Diagnose">
-            <Button variant="outline" className="border-gray-200 text-gray-600 hover:bg-gray-50 rounded-xl">
+            <Button variant="outline" className="border-[#52796F] text-[#52796F] hover:bg-[#52796F]/5">
               <Camera className="w-4 h-4 mr-2" /> Diagnose
             </Button>
           </Link>
-          <Button onClick={() => setShowAddPlant(true)} className="bg-[#16A34A] hover:bg-[#15803D] rounded-xl shadow-sm">
+          <Button onClick={() => setShowAddPlant(true)} className="bg-[#1B4332] hover:bg-[#2D6A4F]">
             <Plus className="w-4 h-4 mr-2" /> Add Plant
           </Button>
         </div>
@@ -70,7 +70,7 @@ export default function Dashboard() {
         {/* My Plants */}
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">My Plants</h2>
+            <h2 className="text-lg font-semibold text-[#1B4332]">My Plants</h2>
             <Link to="/Plants" className="text-sm text-[#52796F] hover:underline flex items-center gap-1">
               View all <ChevronRight className="w-4 h-4" />
             </Link>
@@ -85,7 +85,7 @@ export default function Dashboard() {
             <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
               <Leaf className="w-12 h-12 text-[#52796F]/30 mx-auto mb-3" />
               <p className="text-gray-500 text-sm">No plants yet. Add your first plant to get started!</p>
-              <Button onClick={() => setShowAddPlant(true)} className="mt-4 bg-[#16A34A] hover:bg-[#15803D] rounded-xl">
+              <Button onClick={() => setShowAddPlant(true)} className="mt-4 bg-[#1B4332] hover:bg-[#2D6A4F]">
                 <Plus className="w-4 h-4 mr-2" /> Add Plant
               </Button>
             </div>
@@ -96,8 +96,8 @@ export default function Dashboard() {
         <div className="space-y-6">
           {/* Alerts */}
           {criticalPlants.length > 0 && (
-            <div className="bg-white rounded-2xl border border-red-50 p-5">
-              <h3 className="text-sm font-semibold text-red-600 mb-3 flex items-center gap-2">
+            <div className="bg-white rounded-2xl border border-red-100 p-5">
+              <h3 className="text-sm font-semibold text-red-700 mb-3 flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4" /> Plants Needing Attention
               </h3>
               <div className="space-y-3">
@@ -116,7 +116,7 @@ export default function Dashboard() {
 
           {/* Recent Diagnoses */}
           <div className="bg-white rounded-2xl border border-gray-100 p-5">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Recent Diagnoses</h3>
+            <h3 className="text-sm font-semibold text-[#1B4332] mb-3">Recent Diagnoses</h3>
             {recentDiagnoses.length > 0 ? (
               <div className="space-y-3">
                 {recentDiagnoses.map(d => (
