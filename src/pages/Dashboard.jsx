@@ -160,5 +160,6 @@ export default function Dashboard() {
 
       <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={() => refetchPlants()} />
     </div>
+    </PullToRefresh>
   );
 }
