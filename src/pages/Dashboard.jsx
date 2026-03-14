@@ -29,7 +29,7 @@ export default function Dashboard() {
     enabled: !!user?.email,
   });
 
-  const { data: diagnoses = [] } = useQuery({
+  const { data: diagnoses = [], refetch: refetchDiagnoses } = useQuery({
     queryKey: ['diagnoses', user?.email],
     queryFn: () => base44.entities.Diagnosis.filter({ created_by: user.email }, '-created_date', 10),
     enabled: !!user?.email,
