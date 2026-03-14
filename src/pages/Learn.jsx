@@ -133,6 +133,19 @@ export default function Learn() {
           </div>
         </div>
       )}
+
+      {/* Per-plant care guides */}
+      {plants.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-lg font-semibold text-[#1B4332] mb-1">Your Plant Care Guides</h2>
+          <p className="text-sm text-gray-400 mb-4">Click on a plant to get an AI-generated care guide with light, water, soil, and tips.</p>
+          <div className="space-y-3">
+            {plants.map(plant => (
+              <PlantCareGuide key={plant.id} plant={plant} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
