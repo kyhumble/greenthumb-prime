@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Loader2, Sun, Droplets, Layers, Bug, Thermometer, ChevronDown, ChevronUp, Sparkles, Flame } from 'lucide-react';
+import { Loader2, Sun, Droplets, Layers, Bug, Thermometer, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const ICONS = {
-  light: Sun,
-  water: Droplets,
-  soil: Layers,
-  pests: Bug,
-  temperature: Thermometer,
-};
+
 
 export default function PlantCareGuide({ plant }) {
   const [guide, setGuide] = useState(null);
