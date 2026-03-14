@@ -90,25 +90,27 @@ const AuthenticatedApp = () => {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/Dashboard" replace />} />
-      <Route path="/Landing" element={<Landing />} />
-      <Route path="/Pricing" element={<Pricing />} />
-      <Route element={<AppLayout />}>
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Plants" element={<Plants />} />
-        <Route path="/PlantProfile" element={<PlantProfile />} />
-        <Route path="/Diagnose" element={<Diagnose />} />
-        <Route path="/Library" element={<Library />} />
-        <Route path="/Learn" element={<Learn />} />
-        <Route path="/Settings" element={<Settings />} />
-        <Route path="/Schedule" element={<Schedule />} />
-        <Route path="/Encyclopedia" element={<Encyclopedia />} />
-        <Route path="/GrowthAnalytics" element={<GrowthAnalytics />} />
-        <Route path="/Agents" element={<Agents />} />
-      </Route>
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <AnimatedRoutes>
+      <Routes>
+        <Route path="/" element={<Navigate to="/Dashboard" replace />} />
+        <Route path="/Landing" element={<Landing />} />
+        <Route path="/Pricing" element={<Pricing />} />
+        <Route element={<AppLayout />}>
+          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/Plants" element={<Plants />} />
+          <Route path="/PlantProfile" element={<PlantProfile />} />
+          <Route path="/Diagnose" element={<Diagnose />} />
+          <Route path="/Library" element={<Library />} />
+          <Route path="/Learn" element={<Learn />} />
+          <Route path="/Settings" element={<Settings />} />
+          <Route path="/Schedule" element={<Schedule />} />
+          <Route path="/Encyclopedia" element={<Encyclopedia />} />
+          <Route path="/GrowthAnalytics" element={<GrowthAnalytics />} />
+          <Route path="/Agents" element={<Agents />} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </AnimatedRoutes>
   );
 };
 
@@ -117,6 +119,7 @@ function App() {
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
+          <DarkModeSync />
           <AuthenticatedApp />
         </Router>
         <Toaster />
