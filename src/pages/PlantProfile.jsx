@@ -125,10 +125,17 @@ export default function PlantProfile() {
       {/* Tabs */}
       <Tabs defaultValue="gallery" className="space-y-4">
         <TabsList className="bg-white border border-gray-100 p-1 rounded-xl">
-          <TabsTrigger value="gallery" className="rounded-lg text-xs">Gallery ({images.length})</TabsTrigger>
+          <TabsTrigger value="timeline" className="rounded-lg text-xs">Timeline ({images.length})</TabsTrigger>
+          <TabsTrigger value="gallery" className="rounded-lg text-xs">Grid</TabsTrigger>
           <TabsTrigger value="diagnoses" className="rounded-lg text-xs">Diagnoses ({diagnoses.length})</TabsTrigger>
           <TabsTrigger value="interventions" className="rounded-lg text-xs">Care Log ({interventions.length})</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="timeline">
+          <div className="bg-white rounded-2xl border border-gray-100 p-5">
+            <PhotoTimeline images={images} plantId={plantId} plant={plant} onUploaded={handleRefreshAll} />
+          </div>
+        </TabsContent>
 
         <TabsContent value="gallery">
           <div className="bg-white rounded-2xl border border-gray-100 p-5">

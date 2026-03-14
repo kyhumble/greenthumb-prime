@@ -74,6 +74,9 @@ export default function Dashboard() {
       {/* Needs Attention */}
       <NeedsAttentionWidget plants={plants} />
 
+      {/* Seasonal Planner */}
+      {plants.length > 0 && <SeasonalPlannerWidget plants={plants} />}
+
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* My Plants */}
