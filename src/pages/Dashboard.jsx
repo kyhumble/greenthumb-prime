@@ -42,7 +42,12 @@ export default function Dashboard() {
   const criticalPlants = plants.filter(p => (p.health_score || 0) < 40);
   const recentDiagnoses = diagnoses.slice(0, 5);
 
+  const handleRefresh = async () => {
+    await Promise.all([refetchPlants(), refetchDiagnoses()]);
+  };
+
   return (
+    <PullToRefresh onRefresh={handleRefresh}>
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">

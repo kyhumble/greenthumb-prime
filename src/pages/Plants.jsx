@@ -34,6 +34,7 @@ export default function Plants() {
   });
 
   return (
+    <PullToRefresh onRefresh={() => refetch()}>
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
