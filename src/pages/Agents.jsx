@@ -5,7 +5,7 @@ const AGENTS = [
   {
     id: 'plant_diagnostic',
     name: 'Plant Diagnostic',
-    tagline: 'What's wrong with my plant?',
+    tagline: "What's wrong with my plant?",
     description: 'Identifies plants, analyzes symptoms, produces diagnoses with confidence scores, and requests follow-up images.',
     emoji: '🔬',
     color: 'from-emerald-50 to-teal-50 border-emerald-200',
