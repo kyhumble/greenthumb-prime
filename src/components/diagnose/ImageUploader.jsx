@@ -1,70 +1,52 @@
-import React, { useState, useCallback } from 'react';
-import { Camera, Upload, X, Loader2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Camera, X, Loader2, Leaf, ScanLine, FlowerIcon, Microscope } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
 import { base44 } from '@/api/base44Client';
 
-const imageTypes = [
-  { value: 'whole_plant', label: 'Whole Plant' },
-  { value: 'leaf', label: 'Leaf Close-up' },
-  { value: 'soil', label: 'Soil Surface' },
-  { value: 'roots', label: 'Roots' },
-  { value: 'pest', label: 'Pest/Bug' },
-  { value: 'garden_bed', label: 'Garden Bed' },
-  { value: 'light_assessment', label: 'Light Assessment' },
+const SLOTS = [
+  { key: 'whole_plant', label: 'Full Plant', subtitle: 'Overall view', emoji: '🌿' },
+  { key: 'leaf', label: 'Leaves', subtitle: 'Top & underside', emoji: '🍃' },
+  { key: 'roots', label: 'Stem/Base', subtitle: 'Stem & crown', emoji: '🪴' },
+  { key: 'soil', label: 'Soil', subtitle: 'Surface & drainage', emoji: '🪣' },
+  { key: 'pest', label: 'Close-up', subtitle: 'Problem area', emoji: '🔍' },
 ];
 
 export default function ImageUploader({ plantId, onAnalysisComplete }) {
-  const [files, setFiles] = useState([]);
-  const [imageType, setImageType] = useState('whole_plant');
+  const [slots, setSlots] = useState({});
   const [analyzing, setAnalyzing] = useState(false);
   const [progress, setProgress] = useState('');
 
-  const handleFiles = (e) => {
-    const newFiles = Array.from(e.target.files).map(file => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
-    setFiles(prev => [...prev, ...newFiles]);
+  const handleSlotFile = (key, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setSlots(prev => ({ ...prev, [key]: { file, preview: URL.createObjectURL(file) } }));
   };
 
-  const removeFile = (index) => {
-    setFiles(prev => prev.filter((_, i) => i !== index));
+  const removeSlot = (key) => {
+    setSlots(prev => { const n = { ...prev }; delete n[key]; return n; });
   };
+
+  const filledSlots = Object.entries(slots);
+  const hasFiles = filledSlots.length > 0;
 
   const handleAnalyze = async () => {
-    if (files.length === 0) return;
+    if (!hasFiles) return;
     setAnalyzing(true);
 
-    for (let i = 0; i < files.length; i++) {
-      setProgress(`Uploading image ${i + 1} of ${files.length}...`);
-      const { file_url } = await base44.integrations.Core.UploadFile({ file: files[i].file });
+    for (let i = 0; i < filledSlots.length; i++) {
+      const [imageType, { file }] = filledSlots[i];
+      setProgress(`Uploading photo ${i + 1} of ${filledSlots.length}...`);
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
 
-      setProgress(`Analyzing image ${i + 1}...`);
-      const analysisPrompt = `You are an expert botanist and plant diagnostician. Analyze this plant image thoroughly.
-
-Image type: ${imageType}
-
-Provide a detailed analysis in JSON format with these fields:
-- species_identified: string (best guess of plant species)
-- diagnosis_summary: string (1-2 sentence summary)
-- stress_indicators: array of strings (any stress signs detected)
-- ai_confidence: number (0-100, your confidence level)
-- observations: string (detailed observations)
-- likely_cause: string (if issues detected, the likely cause)
-- diagnosis_type: one of "pest", "disease", "nutrient_deficiency", "water_stress", "light_stress", "environmental", "general_health", "soil_issue"
-- severity: one of "low", "moderate", "high", "critical"
-- recommended_actions: array of strings (what to do)
-- confirmation_steps: array of strings (how to confirm the diagnosis)
-- expected_recovery_time: string (if treatment needed)
-- quick_fix: string (brief actionable advice)
-- detailed_explanation: string (in-depth scientific explanation of the issue and plant biology involved)
-- light_analysis: object with { intensity: string, sun_hours_estimate: string, placement_recommendations: string } (only if image_type is light_assessment)
-- soil_analysis: object with { texture: string, moisture: string, compaction: string, amendments: string } (only if image_type is soil)`;
-
+      setProgress(`Analyzing photo ${i + 1}...`);
       const analysis = await base44.integrations.Core.InvokeLLM({
-        prompt: analysisPrompt,
+        prompt: `You are an expert botanist and plant diagnostician. Analyze this plant image thoroughly.
+Image type: ${imageType}
+Provide a detailed analysis with these fields:
+- species_identified, diagnosis_summary, stress_indicators (array), ai_confidence (0-100),
+- observations, likely_cause, diagnosis_type (one of: pest|disease|nutrient_deficiency|water_stress|light_stress|environmental|general_health|soil_issue),
+- severity (low|moderate|high|critical), recommended_actions (array), confirmation_steps (array),
+- expected_recovery_time, quick_fix, detailed_explanation`,
         file_urls: [file_url],
         response_json_schema: {
           type: "object",
@@ -82,13 +64,10 @@ Provide a detailed analysis in JSON format with these fields:
             expected_recovery_time: { type: "string" },
             quick_fix: { type: "string" },
             detailed_explanation: { type: "string" },
-            light_analysis: { type: "object", properties: { intensity: { type: "string" }, sun_hours_estimate: { type: "string" }, placement_recommendations: { type: "string" } } },
-            soil_analysis: { type: "object", properties: { texture: { type: "string" }, moisture: { type: "string" }, compaction: { type: "string" }, amendments: { type: "string" } } },
           }
         }
       });
 
-      // Save plant image
       const plantImage = await base44.entities.PlantImage.create({
         image_url: file_url,
         plant_id: plantId,
@@ -100,7 +79,6 @@ Provide a detailed analysis in JSON format with these fields:
         species_identified: analysis.species_identified || '',
       });
 
-      // Save diagnosis
       await base44.entities.Diagnosis.create({
         plant_id: plantId,
         diagnosis_type: analysis.diagnosis_type || 'general_health',
@@ -116,14 +94,12 @@ Provide a detailed analysis in JSON format with these fields:
         image_id: plantImage.id,
       });
 
-      // Update plant health score
       if (analysis.ai_confidence > 60) {
         const healthDelta = analysis.severity === 'critical' ? -30 : analysis.severity === 'high' ? -20 : analysis.severity === 'moderate' ? -10 : 0;
         if (healthDelta !== 0) {
-          const plant = (await base44.entities.Plant.filter({ id: plantId }))[0];
-          if (plant) {
-            const newScore = Math.max(0, Math.min(100, (plant.health_score || 75) + healthDelta));
-            await base44.entities.Plant.update(plantId, { health_score: newScore });
+          const plants = await base44.entities.Plant.filter({ id: plantId });
+          if (plants[0]) {
+            await base44.entities.Plant.update(plantId, { health_score: Math.max(0, Math.min(100, (plants[0].health_score || 75) + healthDelta)) });
           }
         }
       }
@@ -131,55 +107,62 @@ Provide a detailed analysis in JSON format with these fields:
 
     setProgress('');
     setAnalyzing(false);
-    setFiles([]);
+    setSlots({});
     if (onAnalysisComplete) onAnalysisComplete();
   };
 
   return (
-    <div className="space-y-4">
-      {/* Upload area */}
-      <label className="flex flex-col items-center justify-center h-48 border-2 border-dashed border-[#52796F]/30 rounded-2xl cursor-pointer hover:border-[#52796F] hover:bg-[#52796F]/5 transition-all duration-200">
-        <Camera className="w-10 h-10 text-[#52796F]/50 mb-2" />
-        <span className="text-sm font-medium text-[#52796F]">Take or upload a photo</span>
-        <span className="text-xs text-gray-400 mt-1">PNG, JPG up to 10MB</span>
-        <input type="file" accept="image/*" multiple className="hidden" onChange={handleFiles} disabled={analyzing} />
-      </label>
-
-      {/* Previews */}
-      {files.length > 0 && (
-        <div className="grid grid-cols-3 gap-2">
-          {files.map((f, i) => (
-            <div key={i} className="relative rounded-xl overflow-hidden aspect-square">
-              <img src={f.preview} alt="" className="w-full h-full object-cover" />
-              <button onClick={() => removeFile(i)} className="absolute top-1 right-1 bg-black/50 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                <X className="w-3 h-3" />
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Image type selector */}
+    <div className="space-y-5">
       <div>
-        <Label className="text-xs text-gray-500">Image Type</Label>
-        <Select value={imageType} onValueChange={setImageType}>
-          <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            {imageTypes.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}
-          </SelectContent>
-        </Select>
+        <p className="text-sm font-medium text-[#1B4332] mb-1">📸 Upload Photos</p>
+        <p className="text-xs text-gray-400">More angles = more accurate diagnosis. Upload at least one photo to get started.</p>
       </div>
 
-      {/* Analyze button */}
-      <Button 
-        onClick={handleAnalyze} 
-        disabled={files.length === 0 || analyzing} 
+      <p className="text-xs text-gray-500">Add photos from different angles for a more accurate diagnosis</p>
+
+      {/* Photo slots */}
+      <div className="grid grid-cols-5 gap-2">
+        {SLOTS.map(slot => {
+          const filled = slots[slot.key];
+          return (
+            <div key={slot.key} className="flex flex-col items-center gap-1">
+              <div className="relative w-full aspect-square">
+                {filled ? (
+                  <div className="relative w-full h-full rounded-xl overflow-hidden border-2 border-[#52796F]">
+                    <img src={filled.preview} alt={slot.label} className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => removeSlot(slot.key)}
+                      className="absolute top-1 right-1 bg-black/50 text-white rounded-full w-5 h-5 flex items-center justify-center"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-[#52796F] hover:bg-[#52796F]/5 transition-all">
+                    <span className="text-2xl mb-1">{slot.emoji}</span>
+                    <span className="text-lg text-gray-300 font-light">+</span>
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => handleSlotFile(slot.key, e)} disabled={analyzing} />
+                  </label>
+                )}
+              </div>
+              <p className="text-[10px] font-medium text-gray-700 text-center leading-tight">{slot.label}</p>
+              <p className="text-[9px] text-gray-400 text-center leading-tight">{slot.subtitle}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <p className="text-xs text-gray-400 text-center">At minimum, upload a full plant photo. More photos = more accurate diagnosis.</p>
+
+      <Button
+        onClick={handleAnalyze}
+        disabled={!hasFiles || analyzing}
         className="w-full bg-[#1B4332] hover:bg-[#2D6A4F] h-12 text-base"
       >
         {analyzing ? (
           <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> {progress}</>
         ) : (
-          <><Camera className="w-5 h-5 mr-2" /> Analyze {files.length > 0 ? `(${files.length} photo${files.length > 1 ? 's' : ''})` : ''}</>
+          <><Camera className="w-5 h-5 mr-2" /> Analyze {hasFiles ? `(${filledSlots.length} photo${filledSlots.length > 1 ? 's' : ''})` : ''}</>
         )}
       </Button>
     </div>
