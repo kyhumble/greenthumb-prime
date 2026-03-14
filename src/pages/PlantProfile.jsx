@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import HealthScoreBadge from '../components/plants/HealthScoreBadge';
 import PlantGallery from '../components/profile/PlantGallery';
+import PhotoTimeline from '../components/profile/PhotoTimeline';
 import DiagnosisCard from '../components/diagnose/DiagnosisCard';
 import InterventionTimeline from '../components/profile/InterventionTimeline';
 import ImageUploader from '../components/diagnose/ImageUploader';
