@@ -40,18 +40,18 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[#1B4332]">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
             Welcome back{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ''} 🌿
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Here's how your garden is doing today</p>
+          <p className="text-gray-400 text-sm mt-1">Here's how your garden is doing today</p>
         </div>
         <div className="flex gap-2">
           <Link to="/Diagnose">
-            <Button variant="outline" className="border-[#52796F] text-[#52796F] hover:bg-[#52796F]/5">
+            <Button variant="outline" className="border-gray-200 text-gray-600 hover:bg-gray-50 rounded-xl">
               <Camera className="w-4 h-4 mr-2" /> Diagnose
             </Button>
           </Link>
-          <Button onClick={() => setShowAddPlant(true)} className="bg-[#1B4332] hover:bg-[#2D6A4F]">
+          <Button onClick={() => setShowAddPlant(true)} className="bg-[#16A34A] hover:bg-[#15803D] rounded-xl shadow-sm">
             <Plus className="w-4 h-4 mr-2" /> Add Plant
           </Button>
         </div>
