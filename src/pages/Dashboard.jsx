@@ -10,6 +10,7 @@ import PlantCard from '../components/plants/PlantCard';
 import HealthScoreBadge from '../components/plants/HealthScoreBadge';
 import AddPlantDialog from '../components/plants/AddPlantDialog';
 import NeedsAttentionWidget from '../components/dashboard/NeedsAttentionWidget';
+import { Link } from 'react-router-dom';
 import DailyTasksWidget from '../components/dashboard/DailyTasksWidget';
 import SeasonalPlannerWidget from '../components/dashboard/SeasonalPlannerWidget';
 import WeatherAlertsWidget from '../components/dashboard/WeatherAlertsWidget';
