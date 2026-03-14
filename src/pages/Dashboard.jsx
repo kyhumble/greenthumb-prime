@@ -12,6 +12,7 @@ import AddPlantDialog from '../components/plants/AddPlantDialog';
 import NeedsAttentionWidget from '../components/dashboard/NeedsAttentionWidget';
 import DailyTasksWidget from '../components/dashboard/DailyTasksWidget';
 import SeasonalPlannerWidget from '../components/dashboard/SeasonalPlannerWidget';
+import WeatherAlertsWidget from '../components/dashboard/WeatherAlertsWidget';
 
 export default function Dashboard() {
   const [showAddPlant, setShowAddPlant] = useState(false);
