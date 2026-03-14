@@ -24,6 +24,44 @@ import GrowthAnalytics from './pages/GrowthAnalytics';
 import Agents from './pages/Agents';
 import Pricing from './pages/Pricing';
 
+// Dark mode: sync with system preference
+function DarkModeSync() {
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const apply = (e) => document.documentElement.classList.toggle('dark', e.matches);
+    apply(mq);
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, []);
+  return null;
+}
+
+// Animated route wrapper
+const pageVariants = {
+  initial: { opacity: 0, x: 24 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -24 },
+};
+
+function AnimatedRoutes({ children }) {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={{ duration: 0.18, ease: 'easeInOut' }}
+        style={{ width: '100%' }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
 
