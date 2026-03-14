@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
+import { useQuery } from '@tanstack/react-query';
 import { BookOpen, Loader2, Send, Sprout, Droplets, Sun, Bug, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import ReactMarkdown from 'react-markdown';
+import PlantCareGuide from '../components/learn/PlantCareGuide';
 
 const topics = [
   { id: 'watering', label: 'Watering Science', icon: Droplets, prompt: 'Explain the science of plant watering — how plants absorb water, signs of overwatering vs underwatering, and best practices.' },
