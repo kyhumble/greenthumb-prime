@@ -16,9 +16,8 @@ const navItems = [
   { path: '/Settings', label: 'Settings', icon: Settings },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed = false, onCollapse }) {
   const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <aside className={cn(
