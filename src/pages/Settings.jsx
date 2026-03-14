@@ -138,8 +138,32 @@ export default function Settings() {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 className="bg-red-600 hover:bg-red-700"
-                onClick={() => {
-                  toast.error('Account deletion is currently disabled. Please contact support.');
+                onClick={async () => {
+                  try {
+                    // Delete all user data
+                    const [plants, reminders, schedules, interventions, diagnoses, images, envData] = await Promise.all([
+                      base44.entities.Plant.filter({ created_by: user.email }),
+                      base44.entities.CareReminder.filter({ created_by: user.email }),
+                      base44.entities.WateringSchedule.filter({ created_by: user.email }),
+                      base44.entities.Intervention.filter({ created_by: user.email }),
+                      base44.entities.Diagnosis.filter({ created_by: user.email }),
+                      base44.entities.PlantImage.filter({ created_by: user.email }),
+                      base44.entities.EnvironmentalData.filter({ created_by: user.email }),
+                    ]);
+                    await Promise.all([
+                      ...plants.map(r => base44.entities.Plant.delete(r.id)),
+                      ...reminders.map(r => base44.entities.CareReminder.delete(r.id)),
+                      ...schedules.map(r => base44.entities.WateringSchedule.delete(r.id)),
+                      ...interventions.map(r => base44.entities.Intervention.delete(r.id)),
+                      ...diagnoses.map(r => base44.entities.Diagnosis.delete(r.id)),
+                      ...images.map(r => base44.entities.PlantImage.delete(r.id)),
+                      ...envData.map(r => base44.entities.EnvironmentalData.delete(r.id)),
+                    ]);
+                    toast.success('All data deleted. Signing you out...');
+                    setTimeout(() => base44.auth.logout(), 1500);
+                  } catch {
+                    toast.error('Failed to delete data. Please contact support@greenthumb.app');
+                  }
                 }}
               >
                 Delete My Account
