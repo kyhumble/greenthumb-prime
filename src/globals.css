@@ -1,0 +1,16 @@
+/* iOS / Native enhancements */
+body {
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+button, a, nav, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+svg {
+  user-select: none;
+  -webkit-user-select: none;
+}
