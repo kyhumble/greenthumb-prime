@@ -50,7 +50,7 @@ const AGENTS = [
     emoji: '📋',
     color: 'from-rose-50 to-pink-50 border-rose-200',
     badge: 'bg-rose-100 text-rose-700',
-    features: ['Today's action list', 'Stop-doing list', 'Monitoring checklist', 'Reassessment schedule', 'Recovery milestones'],
+    features: ["Today's action list", 'Stop-doing list', 'Monitoring checklist', 'Reassessment schedule', 'Recovery milestones'],
   },
   {
     id: 'plant_history',
