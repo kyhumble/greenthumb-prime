@@ -6,33 +6,43 @@ import { Button } from '@/components/ui/button';
 import GrowthProjectionCard from '../components/analytics/GrowthProjectionCard';
 
 export default function GrowthAnalytics() {
-  const [projections, setProjections] = useState({});   // plantId -> projection data
-  const [loading, setLoading] = useState({});            // plantId -> bool
+  const [projections, setProjections] = useState({});
+  const [loading, setLoading] = useState({});
   const [analyzingAll, setAnalyzingAll] = useState(false);
+  const [user, setUser] = useState(null);
+
+  React.useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => {});
+  }, []);
 
   const { data: plants = [] } = useQuery({
-    queryKey: ['plants'],
-    queryFn: () => base44.entities.Plant.list('-created_date', 100),
+    queryKey: ['plants', user?.email],
+    queryFn: () => base44.entities.Plant.filter({ created_by: user.email }, '-created_date', 100),
+    enabled: !!user?.email,
   });
 
   const { data: allInterventions = [] } = useQuery({
-    queryKey: ['all_interventions'],
-    queryFn: () => base44.entities.Intervention.list('-date', 500),
+    queryKey: ['all_interventions', user?.email],
+    queryFn: () => base44.entities.Intervention.filter({ created_by: user.email }, '-date', 500),
+    enabled: !!user?.email,
   });
 
   const { data: allImages = [] } = useQuery({
-    queryKey: ['all_plant_images'],
-    queryFn: () => base44.entities.PlantImage.list('-created_date', 500),
+    queryKey: ['all_plant_images', user?.email],
+    queryFn: () => base44.entities.PlantImage.filter({ created_by: user.email }, '-created_date', 500),
+    enabled: !!user?.email,
   });
 
   const { data: allDiagnoses = [] } = useQuery({
-    queryKey: ['all_diagnoses'],
-    queryFn: () => base44.entities.Diagnosis.list('-created_date', 500),
+    queryKey: ['all_diagnoses', user?.email],
+    queryFn: () => base44.entities.Diagnosis.filter({ created_by: user.email }, '-created_date', 500),
+    enabled: !!user?.email,
   });
 
   const { data: allSchedules = [] } = useQuery({
-    queryKey: ['watering_schedules'],
-    queryFn: () => base44.entities.WateringSchedule.list(),
+    queryKey: ['watering_schedules', user?.email],
+    queryFn: () => base44.entities.WateringSchedule.filter({ created_by: user.email }),
+    enabled: !!user?.email,
   });
 
   const analyzeOne = async (plant) => {
