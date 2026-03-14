@@ -13,6 +13,8 @@ const navItems = [
   { path: '/Diagnose', label: 'AI Diagnose', icon: Camera },
   { path: '/Library', label: 'Plant Library', icon: Bug },
   { path: '/Learn', label: 'Learn', icon: BookOpen },
+  { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
+  { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
   { path: '/Settings', label: 'Settings', icon: Settings },
 ];
 
