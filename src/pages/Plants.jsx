@@ -13,10 +13,16 @@ export default function Plants() {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [locationFilter, setLocationFilter] = useState('all');
+  const [user, setUser] = useState(null);
+
+  React.useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => {});
+  }, []);
 
   const { data: plants = [], refetch } = useQuery({
-    queryKey: ['plants'],
-    queryFn: () => base44.entities.Plant.list('-created_date', 100),
+    queryKey: ['plants', user?.email],
+    queryFn: () => base44.entities.Plant.filter({ created_by: user.email }, '-created_date', 100),
+    enabled: !!user?.email,
   });
 
   const filtered = plants.filter(p => {
