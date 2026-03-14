@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PlantCard from '../components/plants/PlantCard';
 import AddPlantDialog from '../components/plants/AddPlantDialog';
+import PullToRefresh from '../components/ui/PullToRefresh';
 
 export default function Plants() {
   const [showAddPlant, setShowAddPlant] = useState(false);
