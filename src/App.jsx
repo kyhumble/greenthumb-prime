@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 
 import AppLayout from './components/layout/AppLayout';
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Plants from './pages/Plants';
 import PlantProfile from './pages/PlantProfile';
@@ -21,7 +22,7 @@ import GrowthAnalytics from './pages/GrowthAnalytics';
 import Agents from './pages/Agents';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
@@ -38,14 +39,19 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      navigateToLogin();
-      return null;
+      // Show landing page instead of redirecting to login
+      return (
+        <Routes>
+          <Route path="*" element={<Landing />} />
+        </Routes>
+      );
     }
   }
 
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/Dashboard" replace />} />
+      <Route path="/Landing" element={<Landing />} />
       <Route element={<AppLayout />}>
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Plants" element={<Plants />} />
