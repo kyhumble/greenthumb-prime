@@ -96,8 +96,8 @@ export default function Dashboard() {
         <div className="space-y-6">
           {/* Alerts */}
           {criticalPlants.length > 0 && (
-            <div className="bg-white rounded-2xl border border-red-100 p-5">
-              <h3 className="text-sm font-semibold text-red-700 mb-3 flex items-center gap-2">
+            <div className="bg-white rounded-2xl border border-red-50 p-5">
+              <h3 className="text-sm font-semibold text-red-600 mb-3 flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4" /> Plants Needing Attention
               </h3>
               <div className="space-y-3">
@@ -116,7 +116,7 @@ export default function Dashboard() {
 
           {/* Recent Diagnoses */}
           <div className="bg-white rounded-2xl border border-gray-100 p-5">
-            <h3 className="text-sm font-semibold text-[#1B4332] mb-3">Recent Diagnoses</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">Recent Diagnoses</h3>
             {recentDiagnoses.length > 0 ? (
               <div className="space-y-3">
                 {recentDiagnoses.map(d => (
