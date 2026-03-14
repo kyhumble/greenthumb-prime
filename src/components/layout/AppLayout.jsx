@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import MobileNav from './MobileNav';
 
 export default function AppLayout() {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#FDF8F0]">
       {/* Desktop sidebar */}
       <div className="hidden md:block">
-        <Sidebar />
+        <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />
       </div>
-      
-      {/* Main content */}
-      <main className="md:ml-60 pb-20 md:pb-0">
+
+      {/* Main content — shifts with sidebar */}
+      <main className={`transition-all duration-300 pb-20 md:pb-0 ${collapsed ? 'md:ml-16' : 'md:ml-60'}`}>
         <Outlet />
       </main>
 
