@@ -69,6 +69,9 @@ export default function Dashboard() {
         <StatsCard title="Diagnoses" value={diagnoses.length} subtitle="total" icon={Stethoscope} color="rose" />
       </div>
 
+      {/* Weather Alerts */}
+      <WeatherAlertsWidget plants={plants} />
+
       {/* Daily Tasks */}
       {plants.length > 0 && <DailyTasksWidget plants={plants} />}
 
