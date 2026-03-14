@@ -70,7 +70,7 @@ export default function Dashboard() {
         {/* My Plants */}
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-[#1B4332]">My Plants</h2>
+            <h2 className="text-lg font-semibold text-gray-900">My Plants</h2>
             <Link to="/Plants" className="text-sm text-[#52796F] hover:underline flex items-center gap-1">
               View all <ChevronRight className="w-4 h-4" />
             </Link>
