@@ -10,6 +10,7 @@ import PlantCard from '../components/plants/PlantCard';
 import HealthScoreBadge from '../components/plants/HealthScoreBadge';
 import AddPlantDialog from '../components/plants/AddPlantDialog';
 import NeedsAttentionWidget from '../components/dashboard/NeedsAttentionWidget';
+import DailyTasksWidget from '../components/dashboard/DailyTasksWidget';
 
 export default function Dashboard() {
   const [showAddPlant, setShowAddPlant] = useState(false);
