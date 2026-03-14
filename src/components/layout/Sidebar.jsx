@@ -21,21 +21,21 @@ export default function Sidebar({ collapsed = false, onCollapse }) {
 
   return (
     <aside className={cn(
-      "fixed left-0 top-0 h-full bg-white border-r border-gray-100 text-gray-800 z-50 flex flex-col transition-all duration-300",
+      "fixed left-0 top-0 h-full bg-white border-r border-gray-100 z-50 flex flex-col transition-all duration-300",
       collapsed ? "w-16" : "w-60"
     )}>
       {/* Logo */}
-      <div className="flex items-center gap-3 px-4 h-16 border-b border-white/10">
-        <div className="w-8 h-8 rounded-lg bg-[#52796F] flex items-center justify-center flex-shrink-0">
-          <Sprout className="w-5 h-5 text-[#A7D7A0]" />
+      <div className="flex items-center gap-3 px-4 h-16 border-b border-gray-100">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#22C55E] to-[#16A34A] flex items-center justify-center flex-shrink-0 shadow-sm">
+          <Sprout className="w-5 h-5 text-white" />
         </div>
         {!collapsed && (
-          <span className="font-semibold text-sm tracking-wide whitespace-nowrap">GreenThumb Prime</span>
+          <span className="font-semibold text-gray-900 text-sm tracking-tight whitespace-nowrap">GreenThumb</span>
         )}
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-4 space-y-1 px-2">
+      <nav className="flex-1 py-4 space-y-0.5 px-2">
         {navItems.map(item => {
           const isActive = location.pathname.startsWith(item.path);
           return (
@@ -43,13 +43,13 @@ export default function Sidebar({ collapsed = false, onCollapse }) {
               key={item.path}
               to={item.path}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm",
+                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm",
                 isActive 
-                  ? "bg-white/15 text-white font-medium" 
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "bg-[#F0FDF4] text-[#16A34A] font-medium" 
+                  : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
               )}
             >
-              <item.icon className="w-5 h-5 flex-shrink-0" />
+              <item.icon className={cn("w-[18px] h-[18px] flex-shrink-0", isActive ? "text-[#16A34A]" : "text-gray-400")} />
               {!collapsed && <span>{item.label}</span>}
             </Link>
           );
@@ -57,19 +57,19 @@ export default function Sidebar({ collapsed = false, onCollapse }) {
       </nav>
 
       {/* Bottom actions */}
-      <div className="p-2 border-t border-white/10 space-y-1">
+      <div className="p-2 border-t border-gray-100 space-y-0.5">
         <button
           onClick={() => onCollapse && onCollapse(!collapsed)}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/40 hover:text-white/70 transition-colors w-full text-sm"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors w-full text-sm"
         >
-          {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+          {collapsed ? <ChevronRight className="w-[18px] h-[18px]" /> : <ChevronLeft className="w-[18px] h-[18px]" />}
           {!collapsed && <span>Collapse</span>}
         </button>
         <button
           onClick={() => base44.auth.logout()}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/40 hover:text-white/70 transition-colors w-full text-sm"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors w-full text-sm"
         >
-          <LogOut className="w-5 h-5 flex-shrink-0" />
+          <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
           {!collapsed && <span>Sign Out</span>}
         </button>
       </div>
