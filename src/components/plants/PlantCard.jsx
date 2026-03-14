@@ -35,7 +35,7 @@ export default function PlantCard({ plant }) {
       <div className="p-4">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h3 className="font-semibold text-[#1B4332] group-hover:text-[#52796F] transition-colors">
+            <h3 className="font-semibold text-gray-900 group-hover:text-[#16A34A] transition-colors">
               {categoryEmojis[plant.plant_category] || '🌱'} {plant.plant_name}
             </h3>
             {plant.scientific_name && (

@@ -85,7 +85,7 @@ export default function Dashboard() {
             <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
               <Leaf className="w-12 h-12 text-[#52796F]/30 mx-auto mb-3" />
               <p className="text-gray-500 text-sm">No plants yet. Add your first plant to get started!</p>
-              <Button onClick={() => setShowAddPlant(true)} className="mt-4 bg-[#1B4332] hover:bg-[#2D6A4F]">
+              <Button onClick={() => setShowAddPlant(true)} className="mt-4 bg-[#16A34A] hover:bg-[#15803D] rounded-xl">
                 <Plus className="w-4 h-4 mr-2" /> Add Plant
               </Button>
             </div>
