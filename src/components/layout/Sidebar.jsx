@@ -59,7 +59,7 @@ export default function Sidebar({ collapsed = false, onCollapse }) {
       {/* Bottom actions */}
       <div className="p-2 border-t border-white/10 space-y-1">
         <button
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => onCollapse && onCollapse(!collapsed)}
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/40 hover:text-white/70 transition-colors w-full text-sm"
         >
           {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
