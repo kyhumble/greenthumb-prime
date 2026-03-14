@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Leaf, Camera, BookOpen, Settings, 
-  Bug, ChevronLeft, ChevronRight, LogOut, Sprout, CalendarDays, BookMarked
+  Bug, ChevronLeft, ChevronRight, LogOut, Sprout, CalendarDays, BookMarked, TrendingUp
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { cn } from '@/lib/utils';
@@ -15,6 +15,7 @@ const navItems = [
   { path: '/Learn', label: 'Learn', icon: BookOpen },
   { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
   { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
+  { path: '/GrowthAnalytics', label: 'Growth Analytics', icon: TrendingUp },
   { path: '/Settings', label: 'Settings', icon: Settings },
 ];
 
