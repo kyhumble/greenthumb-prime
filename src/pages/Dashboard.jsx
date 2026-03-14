@@ -66,6 +66,9 @@ export default function Dashboard() {
         <StatsCard title="Diagnoses" value={diagnoses.length} subtitle="total" icon={Stethoscope} color="rose" />
       </div>
 
+      {/* Needs Attention */}
+      <NeedsAttentionWidget plants={plants} />
+
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* My Plants */}
@@ -95,26 +98,6 @@ export default function Dashboard() {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Alerts */}
-          {criticalPlants.length > 0 && (
-            <div className="bg-white rounded-2xl border border-red-100 p-5">
-              <h3 className="text-sm font-semibold text-red-700 mb-3 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4" /> Plants Needing Attention
-              </h3>
-              <div className="space-y-3">
-                {criticalPlants.slice(0, 3).map(plant => (
-                  <Link key={plant.id} to={`/PlantProfile?id=${plant.id}`} className="flex items-center gap-3 hover:bg-red-50 rounded-lg p-2 -mx-2 transition-colors">
-                    <HealthScoreBadge score={plant.health_score} size="sm" />
-                    <div>
-                      <p className="text-sm font-medium text-gray-800">{plant.plant_name}</p>
-                      <p className="text-xs text-gray-500">{plant.species || 'Unknown species'}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Recent Diagnoses */}
           <div className="bg-white rounded-2xl border border-gray-100 p-5">
             <h3 className="text-sm font-semibold text-[#1B4332] mb-3">Recent Diagnoses</h3>
