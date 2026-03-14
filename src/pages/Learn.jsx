@@ -16,6 +16,11 @@ const topics = [
 ];
 
 export default function Learn() {
+  const { data: plants = [] } = useQuery({
+    queryKey: ['plants'],
+    queryFn: () => base44.entities.Plant.list('-created_date', 50),
+  });
+
   const [mode, setMode] = useState('quick_fix');
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState('');
