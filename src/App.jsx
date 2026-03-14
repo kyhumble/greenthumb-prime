@@ -15,6 +15,8 @@ import Diagnose from './pages/Diagnose';
 import Library from './pages/Library';
 import Learn from './pages/Learn';
 import Settings from './pages/Settings';
+import Schedule from './pages/Schedule';
+import Encyclopedia from './pages/Encyclopedia';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();

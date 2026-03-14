@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Leaf, Camera, BookOpen, Settings, 
-  Bug, ChevronLeft, ChevronRight, LogOut, Sprout
+  Bug, ChevronLeft, ChevronRight, LogOut, Sprout, CalendarDays, BookMarked
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { cn } from '@/lib/utils';
