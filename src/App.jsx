@@ -20,6 +20,7 @@ import Schedule from './pages/Schedule';
 import Encyclopedia from './pages/Encyclopedia';
 import GrowthAnalytics from './pages/GrowthAnalytics';
 import Agents from './pages/Agents';
+import Pricing from './pages/Pricing';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
@@ -52,6 +53,7 @@ const AuthenticatedApp = () => {
     <Routes>
       <Route path="/" element={<Navigate to="/Dashboard" replace />} />
       <Route path="/Landing" element={<Landing />} />
+      <Route path="/Pricing" element={<Pricing />} />
       <Route element={<AppLayout />}>
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Plants" element={<Plants />} />
