@@ -18,6 +18,7 @@ import Settings from './pages/Settings';
 import Schedule from './pages/Schedule';
 import Encyclopedia from './pages/Encyclopedia';
 import GrowthAnalytics from './pages/GrowthAnalytics';
+import Agents from './pages/Agents';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -56,6 +57,7 @@ const AuthenticatedApp = () => {
         <Route path="/Schedule" element={<Schedule />} />
         <Route path="/Encyclopedia" element={<Encyclopedia />} />
         <Route path="/GrowthAnalytics" element={<GrowthAnalytics />} />
+        <Route path="/Agents" element={<Agents />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
