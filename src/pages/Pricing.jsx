@@ -4,7 +4,7 @@ import { Check, Loader2, Leaf, Zap, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
-const PRICE_ID = 'price_1TAwCQIP3e1rI6SDz3gCZOLS';
+const PRICE_ID = 'price_1TAwUYIP3e1rI6SDydUccbuE';
 
 const features = [
   'Unlimited plant profiles',
