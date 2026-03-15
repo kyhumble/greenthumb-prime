@@ -55,6 +55,8 @@ export default function Schedule() {
         </Button>
       </div>
 
+      <NotificationSettings user={user} onUserUpdated={loadUser} />
+
       {showForm && (
         <div className="mb-6">
           <ReminderForm
