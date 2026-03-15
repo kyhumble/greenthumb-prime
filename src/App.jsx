@@ -23,6 +23,7 @@ import Encyclopedia from './pages/Encyclopedia';
 import GrowthAnalytics from './pages/GrowthAnalytics';
 import Agents from './pages/Agents';
 import Pricing from './pages/Pricing';
+import PlantDatabase from './pages/PlantDatabase';
 
 // Dark mode: sync with system preference
 function DarkModeSync() {
