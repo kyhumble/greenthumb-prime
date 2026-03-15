@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Leaf, Camera, CalendarDays, BookMarked } from 'lucide-react';
+import { LayoutDashboard, Leaf, Camera, CalendarDays, Sprout } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
