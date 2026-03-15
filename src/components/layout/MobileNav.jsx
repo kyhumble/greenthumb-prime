@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Leaf, Camera, CalendarDays, Bot } from 'lucide-react';
+import { LayoutDashboard, Leaf, Camera, CalendarDays, Bot, TrendingUp, BookMarked, Bug, BookOpen, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -8,7 +8,12 @@ const navItems = [
   { path: '/Plants', label: 'Plants', icon: Leaf },
   { path: '/Diagnose', label: 'Diagnose', icon: Camera },
   { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
+  { path: '/GrowthAnalytics', label: 'Analytics', icon: TrendingUp },
   { path: '/Agents', label: 'AI Agents', icon: Bot },
+  { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
+  { path: '/Library', label: 'Pest & Disease', icon: Bug },
+  { path: '/Learn', label: 'Learn', icon: BookOpen },
+  { path: '/Settings', label: 'Settings', icon: Settings },
 ];
 
 export default function MobileNav() {
