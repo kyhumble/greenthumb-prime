@@ -133,7 +133,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
             <p className="text-xs text-gray-400 mt-1">Hit ✨ to auto-fill details from the plant name</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>Category</Label>
               <Select value={form.plant_category} onValueChange={(v) => setForm({ ...form, plant_category: v })}>
@@ -144,20 +144,11 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
               </Select>
             </div>
             <div>
-              <Label>Location</Label>
+              <Label>Where is it?</Label>
               <Select value={form.location} onValueChange={(v) => setForm({ ...form, location: v })}>
                 <SelectTrigger className="mt-1"><SelectValue placeholder="Select" /></SelectTrigger>
                 <SelectContent>
                   {locations.map(l => <SelectItem key={l} value={l}>{l.charAt(0).toUpperCase() + l.slice(1)}</SelectItem>)}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>Growth Stage</Label>
-              <Select value={form.growth_stage} onValueChange={(v) => setForm({ ...form, growth_stage: v })}>
-                <SelectTrigger className="mt-1"><SelectValue placeholder="Select" /></SelectTrigger>
-                <SelectContent>
-                  {stages.map(s => <SelectItem key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
