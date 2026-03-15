@@ -15,6 +15,7 @@ const navItems = [
   { path: '/Learn', label: 'Learn', icon: BookOpen },
   { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
   { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
+  { path: '/PlantDatabase', label: 'Plant Database', icon: Sprout },
   { path: '/GrowthAnalytics', label: 'Growth Analytics', icon: TrendingUp },
   { path: '/Agents', label: 'AI Agents', icon: Bot },
   { path: '/Settings', label: 'Settings', icon: Settings },
