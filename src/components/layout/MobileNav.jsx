@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Leaf, Camera, CalendarDays, Sprout } from 'lucide-react';
+import { LayoutDashboard, Leaf, Camera, CalendarDays, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -8,13 +8,12 @@ const navItems = [
   { path: '/Plants', label: 'Plants', icon: Leaf },
   { path: '/Diagnose', label: 'Diagnose', icon: Camera },
   { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
-  { path: '/PlantDatabase', label: 'Database', icon: Sprout },
+  { path: '/Agents', label: 'AI Agents', icon: Bot },
 ];
 
 export default function MobileNav() {
   const location = useLocation();
   const navigate = useNavigate();
-  // Remember last visited path per tab root
   const lastPaths = useRef({});
 
   useEffect(() => {
@@ -27,10 +26,8 @@ export default function MobileNav() {
   const handleTabPress = (item) => {
     const isActive = location.pathname.startsWith(item.path);
     if (isActive) {
-      // Tap active tab → go to root of that tab
       navigate(item.path);
     } else {
-      // Go to last known path for this tab, or root
       navigate(lastPaths.current[item.path] || item.path);
     }
   };
