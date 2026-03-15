@@ -121,18 +121,16 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
 
           <div>
             <Label>Plant Name *</Label>
-            <Input value={form.plant_name} onChange={(e) => setForm({ ...form, plant_name: e.target.value })} placeholder="e.g. My Monstera" className="mt-1" />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <Label>Species</Label>
-              <Input value={form.species} onChange={(e) => setForm({ ...form, species: e.target.value })} placeholder="e.g. Monstera" className="mt-1" />
+            <div className="flex gap-2 mt-1">
+              <Input value={form.plant_name} onChange={(e) => setForm({ ...form, plant_name: e.target.value })} placeholder="e.g. Monstera, Basil, Snake Plant…" className="flex-1" />
+              <Button type="button" variant="outline" onClick={handleAutoFill} disabled={!form.plant_name || autoFilling} className="shrink-0 border-[#52796F] text-[#52796F] hover:bg-[#52796F]/5">
+                {autoFilling ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+              </Button>
             </div>
-            <div>
-              <Label>Scientific Name</Label>
-              <Input value={form.scientific_name} onChange={(e) => setForm({ ...form, scientific_name: e.target.value })} placeholder="e.g. Monstera deliciosa" className="mt-1" />
-            </div>
+            {(form.species || form.scientific_name) && (
+              <p className="text-xs text-[#52796F] mt-1.5">{form.scientific_name}{form.species && form.scientific_name ? ` · ` : ''}{form.species}</p>
+            )}
+            <p className="text-xs text-gray-400 mt-1">Hit ✨ to auto-fill details from the plant name</p>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
