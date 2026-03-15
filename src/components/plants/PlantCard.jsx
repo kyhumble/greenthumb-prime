@@ -37,6 +37,9 @@ export default function PlantCard({ plant }) {
             <h3 className="font-semibold text-[#1B4332] group-hover:text-[#52796F] transition-colors">
               {categoryEmojis[plant.plant_category] || '🌱'} {plant.plant_name}
             </h3>
+            {plant.species && (
+              <p className="text-xs text-gray-500 mt-0.5">{plant.species}</p>
+            )}
             {plant.scientific_name && (
               <p className="text-xs text-gray-400 italic mt-0.5">{plant.scientific_name}</p>
             )}
