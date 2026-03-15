@@ -49,12 +49,36 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
   const isPaid = ['active', 'trialing'].includes(user?.subscription_status) || user?.role === 'admin';
   const isAtLimit = !isPaid && plantCount >= FREE_PLANT_LIMIT;
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      setPreview(URL.createObjectURL(file));
-    }
+    if (!file) return;
+    setImageFile(file);
+    setPreview(URL.createObjectURL(file));
+
+    // Auto-identify the plant from the photo
+    setIdentifying(true);
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const result = await base44.integrations.Core.InvokeLLM({
+      prompt: `Identify the plant in this image. Return its common name, species, scientific name, and category. Be concise and accurate.`,
+      file_urls: [file_url],
+      response_json_schema: {
+        type: 'object',
+        properties: {
+          plant_name: { type: 'string' },
+          species: { type: 'string' },
+          scientific_name: { type: 'string' },
+          plant_category: { type: 'string', enum: ['houseplant','succulent','herb','vegetable','fruit','flower','tree','shrub','vine','fern','grass','other'] },
+        }
+      }
+    });
+    setForm(f => ({
+      ...f,
+      plant_name: result.plant_name || f.plant_name,
+      species: result.species || f.species,
+      scientific_name: result.scientific_name || f.scientific_name,
+      plant_category: result.plant_category || f.plant_category,
+    }));
+    setIdentifying(false);
   };
 
   const handleSave = async () => {
