@@ -19,13 +19,12 @@ export default function PlantCard({ plant }) {
     >
       {/* Image */}
       <div className="aspect-[4/3] bg-gradient-to-br from-[#E8DCC8]/30 to-[#52796F]/10 relative overflow-hidden">
-        {plant.image_url ? (
-          <img src={plant.image_url} alt={plant.plant_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <Leaf className="w-12 h-12 text-[#52796F]/30" />
-          </div>
-        )}
+        <img
+          src={plant.image_url || `https://source.unsplash.com/400x300/?${encodeURIComponent((plant.species || plant.plant_name) + ',plant')}`}
+          alt={plant.plant_name}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          onError={e => { e.target.src = `https://source.unsplash.com/400x300/?${encodeURIComponent(plant.plant_category || 'plant')}`; }}
+        />
         <div className="absolute top-3 right-3">
           <HealthScoreBadge score={plant.health_score} size="sm" />
         </div>
