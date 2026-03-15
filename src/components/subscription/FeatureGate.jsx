@@ -4,7 +4,7 @@ import { Lock, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function FeatureGate({ user, children, featureName = 'This feature' }) {
-  const isPaid = ['active', 'trialing'].includes(user?.subscription_status);
+  const isPaid = ['active', 'trialing'].includes(user?.subscription_status) || user?.role === 'admin';
 
   if (isPaid) return children;
 
