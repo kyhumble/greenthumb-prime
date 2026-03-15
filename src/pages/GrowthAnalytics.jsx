@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { TrendingUp, Sparkles, Loader2, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
+import { TrendingUp, Sparkles, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GrowthProjectionCard from '../components/analytics/GrowthProjectionCard';
+import FeatureGate from '../components/subscription/FeatureGate';
 
 export default function GrowthAnalytics() {
   const [projections, setProjections] = useState({});
