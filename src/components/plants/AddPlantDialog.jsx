@@ -61,7 +61,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
           <DialogTitle className="text-[#1B4332]">Add New Plant</DialogTitle>
         </DialogHeader>
         {isAtLimit ? (
-          <div className="flex flex-col items-center text-center py-8 px-4">
+          <div className="flex flex-col items-center text-center py-8 px-4 space-y-0">
             <div className="w-12 h-12 rounded-2xl bg-[#1B4332]/10 flex items-center justify-center mx-auto mb-4">
               <Lock className="w-6 h-6 text-[#1B4332]" />
             </div>
@@ -75,7 +75,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
             <p className="text-xs text-gray-400 mt-3">7-day free trial · Cancel anytime</p>
           </div>
         ) : (
-        <div className="space-y-4 mt-2">
+          <div className="space-y-4 mt-2">
           {/* Image upload */}
           <div>
             <Label>Plant Photo</Label>
@@ -149,7 +149,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
           <Button onClick={handleSave} disabled={saving || !form.plant_name} className="w-full bg-[#1B4332] hover:bg-[#2D6A4F]">
             {saving ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Saving...</> : 'Add Plant'}
           </Button>
-        </div>
+          </div>
         )}
       </DialogContent>
     </Dialog>

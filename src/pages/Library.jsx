@@ -101,7 +101,7 @@ export default function Library() {
 
   return (
     <FeatureGate user={user} featureName="Pest & Disease Library">
-    <div className="p-4 md:p-8 max-w-4xl mx-auto">
+      <div className="p-4 md:p-8 max-w-4xl mx-auto">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-[#1B4332] flex items-center gap-2">
           <Bug className="w-6 h-6" /> Pest & Disease Library
@@ -135,7 +135,7 @@ export default function Library() {
           <p className="text-gray-400">No entries found. The library will grow as you use the app.</p>
         </div>
       )}
-    </div>
+      </div>
     </FeatureGate>
   );
 }
