@@ -8,7 +8,7 @@ const navItems = [
   { path: '/Plants', label: 'Plants', icon: Leaf },
   { path: '/Diagnose', label: 'Diagnose', icon: Camera },
   { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
-  { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
+  { path: '/PlantDatabase', label: 'Database', icon: Sprout },
 ];
 
 export default function MobileNav() {
