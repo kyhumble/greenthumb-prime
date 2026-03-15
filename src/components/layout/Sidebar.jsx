@@ -86,6 +86,18 @@ export default function Sidebar({ collapsed = false, onCollapse }) {
 
       {/* Bottom actions */}
       <div className="p-2 border-t border-white/10 space-y-1">
+        <Link
+          to="/Settings"
+          className={cn(
+            "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm w-full",
+            location.pathname.startsWith('/Settings')
+              ? "bg-white/15 text-white font-medium"
+              : "text-white/60 hover:text-white hover:bg-white/5"
+          )}
+        >
+          <Settings className="w-5 h-5 flex-shrink-0" />
+          {!collapsed && <span>Settings</span>}
+        </Link>
         <button
           onClick={() => onCollapse && onCollapse(!collapsed)}
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/40 hover:text-white/70 transition-colors w-full text-sm"
