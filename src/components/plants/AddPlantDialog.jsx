@@ -15,11 +15,14 @@ const categories = ['houseplant', 'succulent', 'herb', 'vegetable', 'fruit', 'fl
 const locations = ['indoor', 'outdoor', 'greenhouse'];
 const stages = ['seedling', 'vegetative', 'budding', 'flowering', 'fruiting', 'dormant', 'mature'];
 
-export default function AddPlantDialog({ open, onOpenChange, onPlantAdded }) {
+export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plantCount = 0, user = null }) {
   const [form, setForm] = useState({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [saving, setSaving] = useState(false);
+
+  const isPaid = ['active', 'trialing'].includes(user?.subscription_status);
+  const isAtLimit = !isPaid && plantCount >= FREE_PLANT_LIMIT;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
