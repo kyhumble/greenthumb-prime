@@ -20,7 +20,7 @@ export default function MobileHeader() {
 
   return (
     <header
-      className="md:hidden bg-[#FDF8F0] border-b border-gray-100 sticky top-0 z-40"
+      className="sm:hidden bg-[#FDF8F0] border-b border-gray-100 sticky top-0 z-40"
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
     >
       <div className="flex items-center h-12 px-4">
