@@ -143,6 +143,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
                 <label className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-[#52796F] transition-colors">
                   <Upload className="w-6 h-6 text-gray-400 mb-1" />
                   <span className="text-xs text-gray-500">Upload a photo</span>
+                  <span className="text-xs text-[#52796F] mt-0.5">AI will identify the plant for you</span>
                   <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
                 </label>
               )}
