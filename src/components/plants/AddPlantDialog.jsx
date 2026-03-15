@@ -21,7 +21,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
   const [preview, setPreview] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const isPaid = ['active', 'trialing'].includes(user?.subscription_status);
+  const isPaid = ['active', 'trialing'].includes(user?.subscription_status) || user?.role === 'admin';
   const isAtLimit = !isPaid && plantCount >= FREE_PLANT_LIMIT;
 
   const handleImageChange = (e) => {
