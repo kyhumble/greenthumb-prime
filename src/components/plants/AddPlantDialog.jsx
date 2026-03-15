@@ -137,7 +137,14 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
               {preview ? (
                 <div className="relative rounded-xl overflow-hidden aspect-video">
                   <img src={preview} alt="Preview" className="w-full h-full object-cover" />
-                  <button onClick={() => { setImageFile(null); setPreview(null); }} className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">×</button>
+                  {identifying ? (
+                    <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center gap-2">
+                      <Loader2 className="w-6 h-6 text-white animate-spin" />
+                      <span className="text-white text-xs font-medium">Identifying plant...</span>
+                    </div>
+                  ) : (
+                    <button onClick={() => { setImageFile(null); setPreview(null); setForm(f => ({ ...f, plant_name: '', species: '', scientific_name: '', plant_category: '' })); }} className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">×</button>
+                  )}
                 </div>
               ) : (
                 <label className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-[#52796F] transition-colors">
