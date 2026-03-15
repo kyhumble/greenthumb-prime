@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Droplets, Sun, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -6,18 +6,21 @@ const difficultyColor = { easy: 'bg-emerald-100 text-emerald-700', moderate: 'bg
 const wateringIcon = { low: '💧', moderate: '💧💧', high: '💧💧💧' };
 
 export default function PlantSpeciesCard({ species, onClick }) {
+  const [imgError, setImgError] = useState(false);
+  const fallbackUrl = `https://source.unsplash.com/300x300/?${encodeURIComponent(species.common_name + ',plant')}`;
+
   return (
     <button
       onClick={onClick}
       className="group text-left bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
     >
       <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#E8DCC8]/30 to-[#52796F]/10">
-        {species.image_url ? (
+        {!imgError ? (
           <img
-            src={species.thumbnail_url || species.image_url}
+            src={species.thumbnail_url || species.image_url || fallbackUrl}
             alt={species.common_name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            onError={e => { e.target.style.display = 'none'; }}
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl">🌱</div>
