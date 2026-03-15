@@ -69,20 +69,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Subscription banner */}
-      {user && !['active', 'trialing'].includes(user.subscription_status) && (
-        <div className="mb-6 bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-4 flex items-center justify-between gap-4 text-white">
-          <div>
-            <p className="font-semibold text-sm">Start your 7-day free trial</p>
-            <p className="text-xs text-white/70 mt-0.5">Unlock all features — AI diagnostics, growth analytics & more.</p>
-          </div>
-          <Link to="/Pricing" className="flex-shrink-0">
-            <button className="bg-white text-[#1B4332] text-xs font-bold px-4 py-2 rounded-xl hover:bg-white/90 transition-colors">
-              Try Free →
-            </button>
-          </Link>
-        </div>
-      )}
+
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
