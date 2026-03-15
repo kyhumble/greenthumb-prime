@@ -59,23 +59,28 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
   const handleSave = async () => {
     if (!form.plant_name) return;
     setSaving(true);
-    let image_url = '';
-    if (imageFile) {
-      const result = await base44.integrations.Core.UploadFile({ file: imageFile });
-      image_url = result.file_url;
+    try {
+      let image_url = '';
+      if (imageFile) {
+        const result = await base44.integrations.Core.UploadFile({ file: imageFile });
+        image_url = result.file_url;
+      }
+      const plant = await base44.entities.Plant.create({
+        ...form,
+        image_url,
+        health_score: 75,
+        planting_date: new Date().toISOString().split('T')[0],
+      });
+      setForm({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
+      setImageFile(null);
+      setPreview(null);
+      onOpenChange(false);
+      if (onPlantAdded) onPlantAdded(plant);
+    } catch (err) {
+      console.error('Failed to save plant:', err);
+    } finally {
+      setSaving(false);
     }
-    const plant = await base44.entities.Plant.create({
-      ...form,
-      image_url,
-      health_score: 75,
-      planting_date: new Date().toISOString().split('T')[0],
-    });
-    setSaving(false);
-    setForm({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
-    setImageFile(null);
-    setPreview(null);
-    onOpenChange(false);
-    if (onPlantAdded) onPlantAdded(plant);
   };
 
   return (
