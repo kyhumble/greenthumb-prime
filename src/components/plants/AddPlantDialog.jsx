@@ -150,6 +150,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
             {saving ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Saving...</> : 'Add Plant'}
           </Button>
         </div>
+        )}
       </DialogContent>
     </Dialog>
   );
