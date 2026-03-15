@@ -27,7 +27,6 @@ const navGroups = [
   {
     label: 'Knowledge',
     items: [
-      { path: '/PlantDatabase', label: 'Plant Database', icon: Sprout },
       { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
       { path: '/Library', label: 'Pest & Disease', icon: Bug },
       { path: '/Learn', label: 'Learn', icon: BookOpen },
