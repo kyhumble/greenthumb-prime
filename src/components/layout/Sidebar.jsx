@@ -54,25 +54,34 @@ export default function Sidebar({ collapsed = false, onCollapse }) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-4 space-y-1 px-2">
-        {navItems.map(item => {
-          const isActive = location.pathname.startsWith(item.path);
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm",
-                isActive 
-                  ? "bg-white/15 text-white font-medium" 
-                  : "text-white/60 hover:text-white hover:bg-white/5"
-              )}
-            >
-              <item.icon className="w-5 h-5 flex-shrink-0" />
-              {!collapsed && <span>{item.label}</span>}
-            </Link>
-          );
-        })}
+      <nav className="flex-1 py-4 px-2 overflow-y-auto space-y-4">
+        {navGroups.map(group => (
+          <div key={group.label}>
+            {!collapsed && (
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 px-3 mb-1">{group.label}</p>
+            )}
+            <div className="space-y-0.5">
+              {group.items.map(item => {
+                const isActive = location.pathname.startsWith(item.path);
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm",
+                      isActive
+                        ? "bg-white/15 text-white font-medium"
+                        : "text-white/60 hover:text-white hover:bg-white/5"
+                    )}
+                  >
+                    <item.icon className="w-5 h-5 flex-shrink-0" />
+                    {!collapsed && <span>{item.label}</span>}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </nav>
 
       {/* Bottom actions */}
