@@ -6,7 +6,10 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
-import { Loader2, Upload } from 'lucide-react';
+import { Loader2, Upload, Lock, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const FREE_PLANT_LIMIT = 3;
 
 const categories = ['houseplant', 'succulent', 'herb', 'vegetable', 'fruit', 'flower', 'tree', 'shrub', 'vine', 'fern', 'grass', 'other'];
 const locations = ['indoor', 'outdoor', 'greenhouse'];
