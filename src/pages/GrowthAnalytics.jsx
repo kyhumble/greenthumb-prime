@@ -207,5 +207,6 @@ Based on this data, generate a detailed growth projection. Be specific about tim
         </div>
       )}
     </div>
+    </FeatureGate>
   );
 }
