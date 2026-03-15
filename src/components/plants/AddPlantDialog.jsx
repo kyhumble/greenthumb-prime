@@ -20,6 +20,30 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [autoFilling, setAutoFilling] = useState(false);
+
+  const handleAutoFill = async () => {
+    if (!form.plant_name) return;
+    setAutoFilling(true);
+    const result = await base44.integrations.Core.InvokeLLM({
+      prompt: `Given the plant name "${form.plant_name}", return its details. If it's a nickname or common name, resolve it. Be concise and accurate.`,
+      response_json_schema: {
+        type: 'object',
+        properties: {
+          species: { type: 'string' },
+          scientific_name: { type: 'string' },
+          plant_category: { type: 'string', enum: ['houseplant','succulent','herb','vegetable','fruit','flower','tree','shrub','vine','fern','grass','other'] },
+        }
+      }
+    });
+    setForm(f => ({
+      ...f,
+      species: result.species || f.species,
+      scientific_name: result.scientific_name || f.scientific_name,
+      plant_category: result.plant_category || f.plant_category,
+    }));
+    setAutoFilling(false);
+  };
 
   const isPaid = ['active', 'trialing'].includes(user?.subscription_status) || user?.role === 'admin';
   const isAtLimit = !isPaid && plantCount >= FREE_PLANT_LIMIT;
