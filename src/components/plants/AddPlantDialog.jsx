@@ -21,6 +21,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
   const [preview, setPreview] = useState(null);
   const [saving, setSaving] = useState(false);
   const [autoFilling, setAutoFilling] = useState(false);
+  const [identifying, setIdentifying] = useState(false);
 
   const handleAutoFill = async () => {
     if (!form.plant_name) return;
