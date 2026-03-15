@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
 import AgentChatModal from '../components/agents/AgentChatModal';
+import FeatureGate from '../components/subscription/FeatureGate';
 
 const AGENTS = [
   {

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import FeatureGate from '../components/subscription/FeatureGate';
 import { CalendarDays, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CareCalendar from '../components/schedule/CareCalendar';
