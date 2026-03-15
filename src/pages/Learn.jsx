@@ -63,6 +63,7 @@ export default function Learn() {
   };
 
   return (
+    <FeatureGate user={user} featureName="Learn Gardening">
     <div className="p-4 md:p-8 max-w-4xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
@@ -150,5 +151,6 @@ export default function Learn() {
         </div>
       )}
     </div>
+    </FeatureGate>
   );
 }

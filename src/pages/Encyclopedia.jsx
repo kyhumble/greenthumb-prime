@@ -149,6 +149,7 @@ For each plant, provide complete care information.`,
   };
 
   return (
+    <FeatureGate user={user} featureName="Plant Encyclopedia">
     <div className="p-4 md:p-8 max-w-5xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[#1B4332] flex items-center gap-2">
@@ -215,5 +216,6 @@ For each plant, provide complete care information.`,
         </div>
       )}
     </div>
+    </FeatureGate>
   );
 }

@@ -82,6 +82,7 @@ export default function Agents() {
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   return (
+    <FeatureGate user={user} featureName="AI Agents">
     <div className="p-4 md:p-8 max-w-6xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[#1B4332]">🤖 AI Agents</h1>
@@ -134,5 +135,6 @@ export default function Agents() {
         <AgentChatModal agent={activeAgent} onClose={() => setActiveAgent(null)} />
       )}
     </div>
+    </FeatureGate>
   );
 }

@@ -36,6 +36,7 @@ export default function Schedule() {
   };
 
   return (
+    <FeatureGate user={user} featureName="Care Schedule">
     <div className="p-4 md:p-8 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
@@ -62,5 +63,6 @@ export default function Schedule() {
 
       <CareCalendar reminders={reminders} plants={plants} onEdit={handleEdit} onRefresh={() => queryClient.invalidateQueries({ queryKey: ['careReminders'] })} />
     </div>
+    </FeatureGate>
   );
 }
