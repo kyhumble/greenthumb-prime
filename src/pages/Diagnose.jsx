@@ -15,6 +15,8 @@ export default function Diagnose() {
   const [showAddPlant, setShowAddPlant] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [mode, setMode] = useState('quick_fix');
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: plants = [], refetch: refetchPlants } = useQuery({
     queryKey: ['plants'],

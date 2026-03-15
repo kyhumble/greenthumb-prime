@@ -101,6 +101,8 @@ export default function Encyclopedia() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const handleSearch = async (searchQuery) => {
     const q = searchQuery || query;

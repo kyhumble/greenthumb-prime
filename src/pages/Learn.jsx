@@ -17,6 +17,8 @@ const topics = [
 ];
 
 export default function Learn() {
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const { data: plants = [] } = useQuery({
     queryKey: ['plants'],
     queryFn: () => base44.entities.Plant.list('-created_date', 50),

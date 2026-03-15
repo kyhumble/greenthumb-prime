@@ -78,6 +78,8 @@ const AGENTS = [
 
 export default function Agents() {
   const [activeAgent, setActiveAgent] = useState(null);
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   return (
     <div className="p-4 md:p-8 max-w-6xl mx-auto">

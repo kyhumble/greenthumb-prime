@@ -85,6 +85,8 @@ function LibraryEntry({ entry }) {
 export default function Library() {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: entries = [] } = useQuery({
     queryKey: ['pestDiseaseLibrary'],

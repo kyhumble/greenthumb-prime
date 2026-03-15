@@ -11,6 +11,8 @@ export default function Schedule() {
   const [showForm, setShowForm] = useState(false);
   const [editingReminder, setEditingReminder] = useState(null);
   const queryClient = useQueryClient();
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: plants = [] } = useQuery({
     queryKey: ['plants'],
