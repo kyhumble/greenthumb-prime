@@ -9,8 +9,8 @@ export default function AppLayout() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F0]" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
-      {/* Desktop sidebar */}
-      <div className="hidden md:block">
+      {/* Sidebar - visible on all non-mobile screens */}
+      <div className="hidden sm:block">
         <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />
       </div>
 
