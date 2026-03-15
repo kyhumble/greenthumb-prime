@@ -7,18 +7,32 @@ import {
 import { base44 } from '@/api/base44Client';
 import { cn } from '@/lib/utils';
 
-const navItems = [
-  { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/Plants', label: 'My Plants', icon: Leaf },
-  { path: '/Diagnose', label: 'AI Diagnose', icon: Camera },
-  { path: '/Library', label: 'Plant Library', icon: Bug },
-  { path: '/Learn', label: 'Learn', icon: BookOpen },
-  { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
-  { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
-  { path: '/PlantDatabase', label: 'Plant Database', icon: Sprout },
-  { path: '/GrowthAnalytics', label: 'Growth Analytics', icon: TrendingUp },
-  { path: '/Agents', label: 'AI Agents', icon: Bot },
-  { path: '/Settings', label: 'Settings', icon: Settings },
+const navGroups = [
+  {
+    label: 'Overview',
+    items: [
+      { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { path: '/Plants', label: 'My Plants', icon: Leaf },
+      { path: '/Schedule', label: 'Schedule', icon: CalendarDays },
+    ],
+  },
+  {
+    label: 'AI Tools',
+    items: [
+      { path: '/Diagnose', label: 'AI Diagnose', icon: Camera },
+      { path: '/GrowthAnalytics', label: 'Growth Analytics', icon: TrendingUp },
+      { path: '/Agents', label: 'AI Agents', icon: Bot },
+    ],
+  },
+  {
+    label: 'Knowledge',
+    items: [
+      { path: '/PlantDatabase', label: 'Plant Database', icon: Sprout },
+      { path: '/Encyclopedia', label: 'Encyclopedia', icon: BookMarked },
+      { path: '/Library', label: 'Pest & Disease', icon: Bug },
+      { path: '/Learn', label: 'Learn', icon: BookOpen },
+    ],
+  },
 ];
 
 export default function Sidebar({ collapsed = false, onCollapse }) {
