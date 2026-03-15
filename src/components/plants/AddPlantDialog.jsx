@@ -60,6 +60,21 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
         <DialogHeader>
           <DialogTitle className="text-[#1B4332]">Add New Plant</DialogTitle>
         </DialogHeader>
+        {isAtLimit ? (
+          <div className="flex flex-col items-center text-center py-8 px-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#1B4332]/10 flex items-center justify-center mx-auto mb-4">
+              <Lock className="w-6 h-6 text-[#1B4332]" />
+            </div>
+            <h3 className="font-semibold text-[#1B4332] mb-1">Free plan limit reached</h3>
+            <p className="text-sm text-gray-500 mb-5">You've used all {FREE_PLANT_LIMIT} free plant slots. Upgrade to add unlimited plants.</p>
+            <Link to="/Pricing" onClick={() => onOpenChange(false)}>
+              <Button className="bg-[#1B4332] hover:bg-[#2D6A4F]">
+                <Zap className="w-4 h-4 mr-2" /> Upgrade — Start Free Trial
+              </Button>
+            </Link>
+            <p className="text-xs text-gray-400 mt-3">7-day free trial · Cancel anytime</p>
+          </div>
+        ) : (
         <div className="space-y-4 mt-2">
           {/* Image upload */}
           <div>
