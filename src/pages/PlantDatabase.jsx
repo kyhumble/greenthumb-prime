@@ -40,27 +40,27 @@ export default function PlantDatabase() {
   const handleGenerateBatch = async () => {
     setGenerating(true);
     const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Generate a comprehensive database of 40 popular garden and houseplants. For each plant, provide accurate botanical information and a real Unsplash photo URL.
+      prompt: `Generate a comprehensive database of 40 popular garden and houseplants. For each plant, provide accurate botanical information.
 
 Return exactly 40 plants covering a variety of categories: houseplants, succulents, herbs, vegetables, flowers, trees, shrubs, and ferns.
 
-For image_url and thumbnail_url, use real Unsplash URLs in this format:
-- image_url: https://images.unsplash.com/photo-[ID]?w=800&q=80
-- thumbnail_url: https://images.unsplash.com/photo-[ID]?w=300&q=80
+For image_url and thumbnail_url, use the Unsplash Source search URL format using the plant's scientific name or common name as the search query:
+- image_url: https://source.unsplash.com/800x600/?[search_query]
+- thumbnail_url: https://source.unsplash.com/300x300/?[search_query]
 
-Use well-known Unsplash photo IDs for recognizable plants. Examples of real IDs to use for common plants:
-- Monstera: 1589847654-7ee928aba83a
-- Succulent/aloe: 1459156212016-c812468e2115
-- Rose: 1465146344425-f00d5f5c8f07
-- Lavender: 1499578124509-6e2a1a3d3a78
-- Sunflower: 1551244072-5d12893e194c
-- Fern: 1536882240392-c81b862b5a6e
-- Basil herb: 1466193328668-6bf39e7c78d1
-- Tomato: 1592841200221-a6898f307baa
-- Oak tree: 1542273917363-399b56f6bc74
-- Cactus: 1459411552884-841db9b3cc2a
+Where [search_query] is the plant's common name with spaces replaced by commas (e.g. "monstera,plant" or "lavender,flower" or "succulent,cactus").
 
-For each plant choose a fitting, accurate Unsplash photo.`,
+Examples:
+- Monstera: https://source.unsplash.com/800x600/?monstera,plant
+- Lavender: https://source.unsplash.com/800x600/?lavender,flower
+- Rose: https://source.unsplash.com/800x600/?rose,flower
+- Basil: https://source.unsplash.com/800x600/?basil,herb
+- Cactus: https://source.unsplash.com/800x600/?cactus,succulent
+- Fern: https://source.unsplash.com/800x600/?fern,plant
+- Sunflower: https://source.unsplash.com/800x600/?sunflower
+- Tomato: https://source.unsplash.com/800x600/?tomato,plant
+
+Use the most specific and accurate search term for each plant.`,
       response_json_schema: {
         type: 'object',
         properties: {
