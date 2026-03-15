@@ -6,6 +6,8 @@ import { CalendarDays, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CareCalendar from '../components/schedule/CareCalendar';
 import ReminderForm from '../components/schedule/ReminderForm';
+import NotificationSettings from '../components/schedule/NotificationSettings';
+import { useCareNotifications } from '../components/schedule/useCareNotifications';
 
 export default function Schedule() {
   const [showForm, setShowForm] = useState(false);
