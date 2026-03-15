@@ -197,7 +197,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
             <Textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Any notes about this plant..." className="mt-1" rows={2} />
           </div>
 
-          <Button onClick={handleSave} disabled={saving || !form.plant_name} className="w-full bg-[#1B4332] hover:bg-[#2D6A4F]">
+          <Button onClick={handleSave} disabled={saving || identifying || !form.plant_name} className="w-full bg-[#1B4332] hover:bg-[#2D6A4F]">
             {saving ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Saving...</> : 'Add Plant'}
           </Button>
           </div>
