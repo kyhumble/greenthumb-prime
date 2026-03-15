@@ -27,6 +27,8 @@ export default function Schedule() {
     queryFn: () => base44.entities.CareReminder.list('-next_due_date', 200),
   });
 
+  useCareNotifications(reminders, plants);
+
   const handleSaved = () => {
     setShowForm(false);
     setEditingReminder(null);
