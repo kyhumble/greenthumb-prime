@@ -158,7 +158,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={() => refetchPlants()} />
+      <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={() => refetchPlants()} plantCount={plants.length} user={user} />
     </div>
     </PullToRefresh>
   );
