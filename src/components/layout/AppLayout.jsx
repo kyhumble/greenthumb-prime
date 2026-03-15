@@ -18,7 +18,7 @@ export default function AppLayout() {
       <MobileHeader />
 
       {/* Main content — shifts with sidebar */}
-      <main className={`transition-all duration-300 pb-20 md:pb-0 ${collapsed ? 'md:ml-16' : 'md:ml-60'}`}>
+      <main className={`transition-all duration-300 pb-20 sm:pb-0 ${collapsed ? 'sm:ml-16' : 'sm:ml-60'}`}>
         <Outlet />
       </main>
 
