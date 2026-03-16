@@ -19,6 +19,7 @@ const stages = ['seedling', 'vegetative', 'budding', 'flowering', 'fruiting', 'd
 export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plantCount = 0, user = null }) {
   const [form, setForm] = useState({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
   const [imageFile, setImageFile] = useState(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [preview, setPreview] = useState(null);
   const [saving, setSaving] = useState(false);
   const [autoFilling, setAutoFilling] = useState(false);
@@ -66,6 +67,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
     setIdentifying(true);
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      setUploadedImageUrl(file_url);
       const result = await base44.integrations.Core.InvokeLLM({
         prompt: `Identify the plant in this image. Return its common name, species, scientific name, and category. Be concise and accurate.`,
         file_urls: [file_url],
@@ -98,19 +100,23 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
     if (!form.plant_name) return;
     setSaving(true);
     try {
-      let image_url = '';
-      if (imageFile) {
+      let image_url = uploadedImageUrl;
+      if (imageFile && !image_url) {
         const result = await base44.integrations.Core.UploadFile({ file: imageFile });
         image_url = result.file_url;
       }
+      const plantData = Object.fromEntries(
+        Object.entries(form).filter(([, v]) => v !== '')
+      );
       const plant = await base44.entities.Plant.create({
-        ...form,
-        image_url,
+        ...plantData,
         health_score: 75,
         planting_date: new Date().toISOString().split('T')[0],
+        ...(image_url ? { image_url } : {}),
       });
       setForm({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
       setImageFile(null);
+      setUploadedImageUrl(null);
       setPreview(null);
       onOpenChange(false);
       toast.success(`${plant.plant_name} added to your collection!`);
@@ -158,7 +164,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
                       <span className="text-white text-xs font-medium">Identifying plant...</span>
                     </div>
                   ) : (
-                    <button onClick={() => { setImageFile(null); setPreview(null); setForm(f => ({ ...f, plant_name: '', species: '', scientific_name: '', plant_category: '' })); }} className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">×</button>
+                    <button onClick={() => { setImageFile(null); setPreview(null); setUploadedImageUrl(null); setForm(f => ({ ...f, plant_name: '', species: '', scientific_name: '', plant_category: '' })); }} className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">×</button>
                   )}
                 </div>
               ) : (
