@@ -114,6 +114,16 @@ Provide a detailed analysis with these fields:
     } finally {
       setProgress('');
       setAnalyzing(false);
+
+      // Revoke any object URLs used for previews to avoid memory leaks
+      if (slots && typeof slots === 'object') {
+        Object.values(slots).forEach(slot => {
+          if (slot && typeof slot === 'object' && slot.previewUrl) {
+            URL.revokeObjectURL(slot.previewUrl);
+          }
+        });
+      }
+
       setSlots({});
     }
   };
