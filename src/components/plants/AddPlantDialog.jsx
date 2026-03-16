@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
 import { Loader2, Upload, Lock, Zap, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const FREE_PLANT_LIMIT = 3;
 
@@ -26,24 +27,30 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
   const handleAutoFill = async () => {
     if (!form.plant_name) return;
     setAutoFilling(true);
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Given the plant name "${form.plant_name}", return its details. If it's a nickname or common name, resolve it. Be concise and accurate.`,
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          species: { type: 'string' },
-          scientific_name: { type: 'string' },
-          plant_category: { type: 'string', enum: ['houseplant','succulent','herb','vegetable','fruit','flower','tree','shrub','vine','fern','grass','other'] },
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Given the plant name "${form.plant_name}", return its details. If it's a nickname or common name, resolve it. Be concise and accurate.`,
+        response_json_schema: {
+          type: 'object',
+          properties: {
+            species: { type: 'string' },
+            scientific_name: { type: 'string' },
+            plant_category: { type: 'string', enum: ['houseplant','succulent','herb','vegetable','fruit','flower','tree','shrub','vine','fern','grass','other'] },
+          }
         }
-      }
-    });
-    setForm(f => ({
-      ...f,
-      species: result.species || f.species,
-      scientific_name: result.scientific_name || f.scientific_name,
-      plant_category: result.plant_category || f.plant_category,
-    }));
-    setAutoFilling(false);
+      });
+      setForm(f => ({
+        ...f,
+        species: result.species || f.species,
+        scientific_name: result.scientific_name || f.scientific_name,
+        plant_category: result.plant_category || f.plant_category,
+      }));
+    } catch (err) {
+      console.error('Auto-fill failed:', err);
+      toast.error('Could not auto-fill plant details. Please fill them in manually.');
+    } finally {
+      setAutoFilling(false);
+    }
   };
 
   const isPaid = ['active', 'trialing'].includes(user?.subscription_status) || user?.role === 'admin';
@@ -57,28 +64,34 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
 
     // Auto-identify the plant from the photo
     setIdentifying(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Identify the plant in this image. Return its common name, species, scientific name, and category. Be concise and accurate.`,
-      file_urls: [file_url],
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          plant_name: { type: 'string' },
-          species: { type: 'string' },
-          scientific_name: { type: 'string' },
-          plant_category: { type: 'string', enum: ['houseplant','succulent','herb','vegetable','fruit','flower','tree','shrub','vine','fern','grass','other'] },
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Identify the plant in this image. Return its common name, species, scientific name, and category. Be concise and accurate.`,
+        file_urls: [file_url],
+        response_json_schema: {
+          type: 'object',
+          properties: {
+            plant_name: { type: 'string' },
+            species: { type: 'string' },
+            scientific_name: { type: 'string' },
+            plant_category: { type: 'string', enum: ['houseplant','succulent','herb','vegetable','fruit','flower','tree','shrub','vine','fern','grass','other'] },
+          }
         }
-      }
-    });
-    setForm(f => ({
-      ...f,
-      plant_name: result.plant_name || f.plant_name,
-      species: result.species || f.species,
-      scientific_name: result.scientific_name || f.scientific_name,
-      plant_category: result.plant_category || f.plant_category,
-    }));
-    setIdentifying(false);
+      });
+      setForm(f => ({
+        ...f,
+        plant_name: result.plant_name || f.plant_name,
+        species: result.species || f.species,
+        scientific_name: result.scientific_name || f.scientific_name,
+        plant_category: result.plant_category || f.plant_category,
+      }));
+    } catch (err) {
+      console.error('Plant identification failed:', err);
+      toast.error('Could not identify the plant from the photo. Please fill in the details manually.');
+    } finally {
+      setIdentifying(false);
+    }
   };
 
   const handleSave = async () => {
@@ -100,9 +113,11 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
       setImageFile(null);
       setPreview(null);
       onOpenChange(false);
+      toast.success(`${plant.plant_name} added to your collection!`);
       if (onPlantAdded) onPlantAdded(plant);
     } catch (err) {
       console.error('Failed to save plant:', err);
+      toast.error('Failed to save plant. Please try again.');
     } finally {
       setSaving(false);
     }
