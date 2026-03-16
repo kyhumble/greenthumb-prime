@@ -133,12 +133,17 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
         ...(image_url ? { image_url } : {}),
       });
       const plant = res?.data;
+      if (!plant) {
+        throw new Error('Failed to create plant.');
+      }
+      const previousPlantName = form.plant_name;
+      const plant = res?.data;
       if (!plant) throw new Error('Failed to create plant. Please try again.');
       setForm({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
       setImageFile(null);
       setUploadedImageUrl(null);
       setPreview(null);
-      onOpenChange(false);
+      toast.success(`${plant?.plant_name || previousPlantName} added to your collection!`);
       if (onPlantAdded) onPlantAdded(plant);
       toast.success(`${plant?.plant_name || form.plant_name} added to your collection!`);
     } catch (err) {
