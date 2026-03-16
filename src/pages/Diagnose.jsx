@@ -35,7 +35,6 @@ export default function Diagnose() {
   };
 
   return (
-    <FeatureGate user={user} featureName="AI Plant Diagnostics">
     <div className="p-4 md:p-8 max-w-3xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[#1B4332] flex items-center gap-2">
@@ -94,9 +93,11 @@ export default function Diagnose() {
 
       {/* Image Upload */}
       {selectedPlantId && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
-          <ImageUploader plantId={selectedPlantId} onAnalysisComplete={handleAnalysisComplete} />
-        </div>
+        <FeatureGate user={user} featureName="AI Plant Diagnostics">
+          <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+            <ImageUploader plantId={selectedPlantId} onAnalysisComplete={handleAnalysisComplete} />
+          </div>
+        </FeatureGate>
       )}
 
       {/* Results */}
@@ -111,6 +112,5 @@ export default function Diagnose() {
 
       <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={(p) => { refetchPlants(); setSelectedPlantId(p.id); }} />
     </div>
-    </FeatureGate>
   );
 }
