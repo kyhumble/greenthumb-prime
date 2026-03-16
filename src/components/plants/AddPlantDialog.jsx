@@ -98,6 +98,10 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
 
   const handleSave = async () => {
     if (!form.plant_name) return;
+    if (!user?.email) {
+      toast.error('You must be logged in to add a plant.');
+      return;
+    }
     setSaving(true);
     try {
       let image_url = uploadedImageUrl;
@@ -123,6 +127,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
         health_score: 75,
         planting_date: new Date().toISOString().split('T')[0],
         ...(image_url ? { image_url } : {}),
+        created_by: user.email,
       });
       setForm({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
       setImageFile(null);
