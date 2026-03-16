@@ -19,7 +19,7 @@ export default function Diagnose() {
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: plants = [], refetch: refetchPlants } = useQuery({
-    queryKey: ['plants'],
+    queryKey: ['plants', 'diagnose', '-created_date', 100],
     queryFn: () => base44.entities.Plant.list('-created_date', 100),
   });
 
