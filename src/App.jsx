@@ -23,6 +23,8 @@ import Encyclopedia from './pages/Encyclopedia';
 import GrowthAnalytics from './pages/GrowthAnalytics';
 import Agents from './pages/Agents';
 import Pricing from './pages/Pricing';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 // Dark mode: sync with system preference
 function DarkModeSync() {
@@ -83,6 +85,8 @@ const AuthenticatedApp = () => {
       // Show landing page instead of redirecting to login
       return (
         <Routes>
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/TermsOfService" element={<TermsOfService />} />
           <Route path="*" element={<Landing />} />
         </Routes>
       );
@@ -95,6 +99,8 @@ const AuthenticatedApp = () => {
         <Route path="/" element={<Navigate to="/Dashboard" replace />} />
         <Route path="/Landing" element={<Landing />} />
         <Route path="/Pricing" element={<Pricing />} />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/TermsOfService" element={<TermsOfService />} />
         <Route element={<AppLayout />}>
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Plants" element={<Plants />} />

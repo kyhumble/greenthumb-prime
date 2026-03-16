@@ -1,5 +1,6 @@
 import React from 'react';
 import { base44 } from '@/api/base44Client';
+import { Link } from 'react-router-dom';
 import { Leaf, Camera, TrendingUp, Bot, CalendarDays, BookMarked, ArrowRight, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -122,7 +123,18 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="border-t border-gray-100 py-6 text-center text-sm text-gray-400">
-        © 2026 GreenThumb Professional. All rights reserved.
+        <div className="flex flex-wrap justify-center gap-4 mb-2">
+          <Link to="/PrivacyPolicy" className="hover:text-[#52796F] transition-colors">Privacy Policy</Link>
+          <Link to="/TermsOfService" className="hover:text-[#52796F] transition-colors">Terms of Service</Link>
+          <a href="mailto:support@greenthumb.app" className="hover:text-[#52796F] transition-colors">Contact</a>
+        </div>
+        <p className="text-xs text-gray-300 mt-1">
+          By using GreenThumb Professional, you agree to our{' '}
+          <Link to="/TermsOfService" className="underline hover:text-[#52796F] transition-colors">Terms of Service</Link>{' '}
+          and{' '}
+          <Link to="/PrivacyPolicy" className="underline hover:text-[#52796F] transition-colors">Privacy Policy</Link>.
+        </p>
+        <p className="mt-2">© 2026 GreenThumb Professional. All rights reserved.</p>
       </footer>
     </div>
   );

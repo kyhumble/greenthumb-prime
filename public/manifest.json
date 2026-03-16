@@ -1,0 +1,28 @@
+{
+  "name": "GreenThumb Professional",
+  "short_name": "GreenThumb",
+  "description": "AI-powered plant care management app. Diagnose plant problems, build personalized care plans, and help your garden thrive.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FDF8F0",
+  "theme_color": "#1B4332",
+  "categories": ["lifestyle", "health", "utilities"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}
