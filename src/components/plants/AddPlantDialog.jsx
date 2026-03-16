@@ -126,18 +126,24 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
       if (!plantData.plant_category) {
         plantData.plant_category = 'other';
       }
-      const plant = await base44.entities.Plant.create({
+      const res = await base44.functions.invoke('createPlant', {
         ...plantData,
         health_score: 75,
         planting_date: new Date().toISOString().split('T')[0],
         ...(image_url ? { image_url } : {}),
-        created_by: user.email,
       });
+      const plant = res?.data;
+      if (!plant) {
+        throw new Error('Failed to create plant.');
+      }
+      const previousPlantName = form.plant_name;
+      const plant = res?.data;
+      if (!plant) throw new Error('Failed to create plant. Please try again.');
       setForm({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
       setImageFile(null);
       setUploadedImageUrl(null);
       setPreview(null);
-      onOpenChange(false);
+      toast.success(`${plant?.plant_name || previousPlantName} added to your collection!`);
       if (onPlantAdded) onPlantAdded(plant);
       toast.success(`${plant?.plant_name || form.plant_name} added to your collection!`);
     } catch (err) {
