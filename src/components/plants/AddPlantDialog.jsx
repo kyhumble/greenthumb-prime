@@ -44,7 +44,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
         ...f,
         species: result.species || f.species,
         scientific_name: result.scientific_name || f.scientific_name,
-        plant_category: result.plant_category || f.plant_category,
+        plant_category: result.plant_category ? result.plant_category.toLowerCase() : f.plant_category,
       }));
     } catch (err) {
       console.error('Auto-fill failed:', err);
@@ -86,7 +86,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
         plant_name: result.plant_name || f.plant_name,
         species: result.species || f.species,
         scientific_name: result.scientific_name || f.scientific_name,
-        plant_category: result.plant_category || f.plant_category,
+        plant_category: result.plant_category ? result.plant_category.toLowerCase() : f.plant_category,
       }));
     } catch (err) {
       console.error('Plant identification failed:', err);
@@ -108,6 +108,16 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
       const plantData = Object.fromEntries(
         Object.entries(form).filter(([, v]) => v !== '')
       );
+      // Normalise any LLM-returned enum value to lowercase so it matches the schema
+      if (plantData.plant_category) {
+        plantData.plant_category = plantData.plant_category.toLowerCase();
+      }
+      // Provide a default category when the user didn't select one, because
+      // the backend entity treats plant_category as a required enum field and
+      // rejects the request when the field is absent.
+      if (!plantData.plant_category) {
+        plantData.plant_category = 'other';
+      }
       const plant = await base44.entities.Plant.create({
         ...plantData,
         health_score: 75,
@@ -119,11 +129,11 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
       setUploadedImageUrl(null);
       setPreview(null);
       onOpenChange(false);
-      toast.success(`${plant.plant_name} added to your collection!`);
       if (onPlantAdded) onPlantAdded(plant);
+      toast.success(`${plant?.plant_name || form.plant_name} added to your collection!`);
     } catch (err) {
       console.error('Failed to save plant:', err);
-      toast.error('Failed to save plant. Please try again.');
+      toast.error(err?.message || 'Failed to save plant. Please try again.');
     } finally {
       setSaving(false);
     }
