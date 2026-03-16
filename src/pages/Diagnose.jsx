@@ -19,7 +19,7 @@ export default function Diagnose() {
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: plants = [], refetch: refetchPlants } = useQuery({
-    queryKey: ['plants'],
+    queryKey: ['plants', 'diagnose', '-created_date', 100],
     queryFn: () => base44.entities.Plant.list('-created_date', 100),
   });
 
@@ -112,7 +112,7 @@ export default function Diagnose() {
         </FeatureGate>
       )}
 
-      <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={(p) => { refetchPlants(); setSelectedPlantId(p.id); }} />
+      <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={(p) => { refetchPlants(); setSelectedPlantId(p.id); }} plantCount={plants.length} user={user} />
     </div>
   );
 }
