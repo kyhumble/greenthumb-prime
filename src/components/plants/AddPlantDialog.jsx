@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
+import { useAuth } from '@/lib/AuthContext';
 import { Loader2, Upload, Lock, Zap, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -16,7 +17,10 @@ const categories = ['houseplant', 'succulent', 'herb', 'vegetable', 'fruit', 'fl
 const locations = ['indoor', 'outdoor', 'greenhouse'];
 const stages = ['seedling', 'vegetative', 'budding', 'flowering', 'fruiting', 'dormant', 'mature'];
 
-export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plantCount = 0, user = null }) {
+export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plantCount = 0, user: userProp = null }) {
+  const { user: authUser } = useAuth();
+  // Prefer the prop passed by the parent (already fetched user), fall back to the auth context user.
+  const user = userProp || authUser;
   const [form, setForm] = useState({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
@@ -98,6 +102,10 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
 
   const handleSave = async () => {
     if (!form.plant_name) return;
+    if (!user?.email) {
+      toast.error('You must be signed in to add a plant. Please refresh and try again.');
+      return;
+    }
     setSaving(true);
     try {
       let image_url = uploadedImageUrl;
@@ -123,6 +131,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
         health_score: 75,
         planting_date: new Date().toISOString().split('T')[0],
         ...(image_url ? { image_url } : {}),
+        created_by: user.email,
       });
       setForm({ plant_name: '', species: '', scientific_name: '', plant_category: '', location: '', growth_stage: '', notes: '' });
       setImageFile(null);
@@ -228,7 +237,7 @@ export default function AddPlantDialog({ open, onOpenChange, onPlantAdded, plant
             <Textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Any notes about this plant..." className="mt-1" rows={2} />
           </div>
 
-          <Button onClick={handleSave} disabled={saving || identifying || !form.plant_name} className="w-full bg-[#1B4332] hover:bg-[#2D6A4F]">
+          <Button onClick={handleSave} disabled={saving || identifying || !form.plant_name || !user?.email} className="w-full bg-[#1B4332] hover:bg-[#2D6A4F]">
             {saving ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Saving...</> : 'Add Plant'}
           </Button>
           </div>

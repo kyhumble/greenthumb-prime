@@ -112,7 +112,7 @@ export default function Diagnose() {
         </FeatureGate>
       )}
 
-      <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={(p) => { refetchPlants(); setSelectedPlantId(p.id); }} />
+      <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={(p) => { refetchPlants(); setSelectedPlantId(p.id); }} plantCount={plants.length} user={user} />
     </div>
   );
 }
