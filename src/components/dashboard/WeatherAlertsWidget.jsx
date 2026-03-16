@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Cloud, Thermometer, Droplets, Wind, AlertTriangle, Info, Loader2, RefreshCw, MapPin, Snowflake, Flame, CloudRain } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const SEVERITY_STYLES = {
   critical: { bg: 'bg-red-50 border-red-200', icon: 'text-red-500', badge: 'bg-red-100 text-red-700', label: 'Critical' },
@@ -12,11 +13,14 @@ const TYPE_ICONS = {
   frost: Snowflake, heat: Flame, wind: Wind, rain: CloudRain, drought: Droplets, general: Info,
 };
 
+const LOCATION_CONSENT_KEY = 'greenthumb_location_consent';
+
 export default function WeatherAlertsWidget({ plants }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [locationDenied, setLocationDenied] = useState(false);
+  const [showConsentPrompt, setShowConsentPrompt] = useState(false);
 
   const outdoorPlants = plants.filter(p => p.location === 'outdoor' || p.location === 'greenhouse');
 
@@ -25,7 +29,7 @@ export default function WeatherAlertsWidget({ plants }) {
     setError('');
     base44.functions.invoke('getWeatherAlerts', { lat, lon, plants: outdoorPlants })
       .then(res => { setData(res.data); setLoading(false); })
-      .catch(e => { setError('Failed to load weather data.'); setLoading(false); });
+      .catch(() => { setError('Failed to load weather data.'); setLoading(false); });
   };
 
   const requestLocation = () => {
@@ -37,8 +41,29 @@ export default function WeatherAlertsWidget({ plants }) {
     );
   };
 
+  const handleConsentAccept = () => {
+    localStorage.setItem(LOCATION_CONSENT_KEY, 'granted');
+    setShowConsentPrompt(false);
+    requestLocation();
+  };
+
+  const handleConsentDeny = () => {
+    localStorage.setItem(LOCATION_CONSENT_KEY, 'denied');
+    setShowConsentPrompt(false);
+    setLocationDenied(true);
+  };
+
   useEffect(() => {
-    if (outdoorPlants.length > 0) requestLocation();
+    if (outdoorPlants.length === 0) return;
+    const consent = localStorage.getItem(LOCATION_CONSENT_KEY);
+    if (consent === 'granted') {
+      requestLocation();
+    } else if (consent === 'denied') {
+      setLocationDenied(true);
+    } else {
+      // No prior consent — show prompt instead of auto-requesting
+      setShowConsentPrompt(true);
+    }
   }, [plants.length]);
 
   if (!outdoorPlants.length) return null;
@@ -59,7 +84,14 @@ export default function WeatherAlertsWidget({ plants }) {
           )}
         </div>
         <button
-          onClick={requestLocation}
+          onClick={() => {
+            const consent = localStorage.getItem(LOCATION_CONSENT_KEY);
+            if (consent === 'granted') {
+              requestLocation();
+            } else {
+              setShowConsentPrompt(true);
+            }
+          }}
           disabled={loading}
           className="text-gray-400 hover:text-[#52796F] transition-colors"
         >
@@ -68,8 +100,32 @@ export default function WeatherAlertsWidget({ plants }) {
       </div>
 
       <div className="p-5">
+        {/* Location consent prompt */}
+        {showConsentPrompt && (
+          <div className="mb-4 bg-[#F0F7F4] border border-[#52796F]/20 rounded-xl p-4">
+            <div className="flex items-start gap-2 mb-3">
+              <MapPin className="w-4 h-4 text-[#52796F] mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-semibold text-[#1B4332] mb-1">Enable Weather Alerts?</p>
+                <p className="text-xs text-gray-500">
+                  GreenThumb would like to access your location to provide weather-based care alerts for your outdoor plants.
+                  Your location is only used to fetch local weather data and is not stored on our servers.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={handleConsentAccept} className="bg-[#1B4332] hover:bg-[#2D6A4F] text-xs h-8">
+                Allow Location Access
+              </Button>
+              <Button size="sm" variant="outline" onClick={handleConsentDeny} className="text-xs h-8">
+                Not Now
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Location denied */}
-        {locationDenied && (
+        {locationDenied && !showConsentPrompt && (
           <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 rounded-xl p-3">
             <AlertTriangle className="w-4 h-4 flex-shrink-0" />
             <span>Location access denied. Enable it in your browser to get weather alerts.</span>

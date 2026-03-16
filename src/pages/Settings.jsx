@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Loader2, Save, User, Trash2 } from 'lucide-react';
+import { Loader2, Save, User, Trash2, FileText, Shield } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function Settings() {
@@ -115,6 +116,31 @@ export default function Settings() {
           {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
           Save Settings
         </Button>
+      </div>
+
+      {/* Legal */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-5 mt-6">
+        <h2 className="text-sm font-semibold text-gray-700 mb-3">Legal & Privacy</h2>
+        <div className="flex flex-col gap-2">
+          <Link
+            to="/PrivacyPolicy"
+            className="flex items-center gap-2 text-sm text-[#52796F] hover:text-[#1B4332] transition-colors"
+          >
+            <Shield className="w-4 h-4" /> Privacy Policy
+          </Link>
+          <Link
+            to="/TermsOfService"
+            className="flex items-center gap-2 text-sm text-[#52796F] hover:text-[#1B4332] transition-colors"
+          >
+            <FileText className="w-4 h-4" /> Terms of Service
+          </Link>
+          <a
+            href="mailto:support@greenthumb.app"
+            className="flex items-center gap-2 text-sm text-[#52796F] hover:text-[#1B4332] transition-colors"
+          >
+            Contact Support
+          </a>
+        </div>
       </div>
 
       {/* Danger Zone */}
