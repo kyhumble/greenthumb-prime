@@ -35,7 +35,6 @@ export default function Diagnose() {
   };
 
   return (
-    <FeatureGate user={user} featureName="AI Plant Diagnostics">
     <div className="p-4 md:p-8 max-w-3xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[#1B4332] flex items-center gap-2">
@@ -92,25 +91,28 @@ export default function Diagnose() {
         </div>
       </div>
 
-      {/* Image Upload */}
       {selectedPlantId && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
-          <ImageUploader plantId={selectedPlantId} onAnalysisComplete={handleAnalysisComplete} />
-        </div>
-      )}
+        <FeatureGate user={user} featureName="AI Plant Diagnostics">
+          <>
+            {/* Image Upload */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+              <ImageUploader plantId={selectedPlantId} onAnalysisComplete={handleAnalysisComplete} />
+            </div>
 
-      {/* Results */}
-      {selectedPlantId && diagnoses.length > 0 && (
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-[#1B4332]">Diagnosis Results</h2>
-          {diagnoses.map(d => (
-            <DiagnosisCard key={d.id} diagnosis={d} mode={mode} />
-          ))}
-        </div>
+            {/* Results */}
+            {diagnoses.length > 0 && (
+              <div className="space-y-4">
+                <h2 className="text-lg font-semibold text-[#1B4332]">Diagnosis Results</h2>
+                {diagnoses.map(d => (
+                  <DiagnosisCard key={d.id} diagnosis={d} mode={mode} />
+                ))}
+              </div>
+            )}
+          </>
+        </FeatureGate>
       )}
 
       <AddPlantDialog open={showAddPlant} onOpenChange={setShowAddPlant} onPlantAdded={(p) => { refetchPlants(); setSelectedPlantId(p.id); }} />
     </div>
-    </FeatureGate>
   );
 }

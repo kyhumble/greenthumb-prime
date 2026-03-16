@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Camera, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
+import { toast } from 'sonner';
 
 const SLOTS = [
   { key: 'whole_plant', label: 'Full Plant', subtitle: 'Overall view', emoji: '🌿' },
@@ -33,82 +34,98 @@ export default function ImageUploader({ plantId, onAnalysisComplete }) {
     if (!hasFiles) return;
     setAnalyzing(true);
 
-    for (let i = 0; i < filledSlots.length; i++) {
-      const [imageType, { file }] = filledSlots[i];
-      setProgress(`Uploading photo ${i + 1} of ${filledSlots.length}...`);
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    try {
+      for (let i = 0; i < filledSlots.length; i++) {
+        const [imageType, { file }] = filledSlots[i];
+        setProgress(`Uploading photo ${i + 1} of ${filledSlots.length}...`);
+        const { file_url } = await base44.integrations.Core.UploadFile({ file });
 
-      setProgress(`Analyzing photo ${i + 1}...`);
-      const analysis = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are an expert botanist and plant diagnostician. Analyze this plant image thoroughly.
+        setProgress(`Analyzing photo ${i + 1}...`);
+        const analysis = await base44.integrations.Core.InvokeLLM({
+          prompt: `You are an expert botanist and plant diagnostician. Analyze this plant image thoroughly.
 Image type: ${imageType}
 Provide a detailed analysis with these fields:
 - species_identified, diagnosis_summary, stress_indicators (array), ai_confidence (0-100),
 - observations, likely_cause, diagnosis_type (one of: pest|disease|nutrient_deficiency|water_stress|light_stress|environmental|general_health|soil_issue),
 - severity (low|moderate|high|critical), recommended_actions (array), confirmation_steps (array),
 - expected_recovery_time, quick_fix, detailed_explanation`,
-        file_urls: [file_url],
-        response_json_schema: {
-          type: "object",
-          properties: {
-            species_identified: { type: "string" },
-            diagnosis_summary: { type: "string" },
-            stress_indicators: { type: "array", items: { type: "string" } },
-            ai_confidence: { type: "number" },
-            observations: { type: "string" },
-            likely_cause: { type: "string" },
-            diagnosis_type: { type: "string" },
-            severity: { type: "string" },
-            recommended_actions: { type: "array", items: { type: "string" } },
-            confirmation_steps: { type: "array", items: { type: "string" } },
-            expected_recovery_time: { type: "string" },
-            quick_fix: { type: "string" },
-            detailed_explanation: { type: "string" },
+          file_urls: [file_url],
+          response_json_schema: {
+            type: "object",
+            properties: {
+              species_identified: { type: "string" },
+              diagnosis_summary: { type: "string" },
+              stress_indicators: { type: "array", items: { type: "string" } },
+              ai_confidence: { type: "number" },
+              observations: { type: "string" },
+              likely_cause: { type: "string" },
+              diagnosis_type: { type: "string" },
+              severity: { type: "string" },
+              recommended_actions: { type: "array", items: { type: "string" } },
+              confirmation_steps: { type: "array", items: { type: "string" } },
+              expected_recovery_time: { type: "string" },
+              quick_fix: { type: "string" },
+              detailed_explanation: { type: "string" },
+            }
           }
-        }
-      });
+        });
 
-      const plantImage = await base44.entities.PlantImage.create({
-        image_url: file_url,
-        plant_id: plantId,
-        image_type: imageType,
-        ai_analysis_result: JSON.stringify(analysis),
-        stress_indicators: analysis.stress_indicators || [],
-        ai_confidence: analysis.ai_confidence || 50,
-        diagnosis_summary: analysis.diagnosis_summary || '',
-        species_identified: analysis.species_identified || '',
-      });
+        const plantImage = await base44.entities.PlantImage.create({
+          image_url: file_url,
+          plant_id: plantId,
+          image_type: imageType,
+          ai_analysis_result: JSON.stringify(analysis),
+          stress_indicators: analysis.stress_indicators || [],
+          ai_confidence: analysis.ai_confidence || 50,
+          diagnosis_summary: analysis.diagnosis_summary || '',
+          species_identified: analysis.species_identified || '',
+        });
 
-      await base44.entities.Diagnosis.create({
-        plant_id: plantId,
-        diagnosis_type: analysis.diagnosis_type || 'general_health',
-        observations: analysis.observations || '',
-        likely_cause: analysis.likely_cause || '',
-        confidence_score: analysis.ai_confidence || 50,
-        confirmation_steps: analysis.confirmation_steps || [],
-        recommended_actions: analysis.recommended_actions || [],
-        expected_recovery_time: analysis.expected_recovery_time || '',
-        severity: analysis.severity || 'low',
-        quick_fix: analysis.quick_fix || '',
-        detailed_explanation: analysis.detailed_explanation || '',
-        image_id: plantImage.id,
-      });
+        await base44.entities.Diagnosis.create({
+          plant_id: plantId,
+          diagnosis_type: analysis.diagnosis_type || 'general_health',
+          observations: analysis.observations || '',
+          likely_cause: analysis.likely_cause || '',
+          confidence_score: analysis.ai_confidence || 50,
+          confirmation_steps: analysis.confirmation_steps || [],
+          recommended_actions: analysis.recommended_actions || [],
+          expected_recovery_time: analysis.expected_recovery_time || '',
+          severity: analysis.severity || 'low',
+          quick_fix: analysis.quick_fix || '',
+          detailed_explanation: analysis.detailed_explanation || '',
+          image_id: plantImage.id,
+        });
 
-      if (analysis.ai_confidence > 60) {
-        const healthDelta = analysis.severity === 'critical' ? -30 : analysis.severity === 'high' ? -20 : analysis.severity === 'moderate' ? -10 : 0;
-        if (healthDelta !== 0) {
-          const plants = await base44.entities.Plant.filter({ id: plantId });
-          if (plants[0]) {
-            await base44.entities.Plant.update(plantId, { health_score: Math.max(0, Math.min(100, (plants[0].health_score || 75) + healthDelta)) });
+        if (analysis.ai_confidence > 60) {
+          const healthDelta = analysis.severity === 'critical' ? -30 : analysis.severity === 'high' ? -20 : analysis.severity === 'moderate' ? -10 : 0;
+          if (healthDelta !== 0) {
+            const plants = await base44.entities.Plant.filter({ id: plantId });
+            if (plants[0]) {
+              await base44.entities.Plant.update(plantId, { health_score: Math.max(0, Math.min(100, (plants[0].health_score || 75) + healthDelta)) });
+            }
           }
         }
       }
-    }
 
-    setProgress('');
-    setAnalyzing(false);
-    setSlots({});
-    if (onAnalysisComplete) onAnalysisComplete();
+      if (onAnalysisComplete) onAnalysisComplete();
+    } catch (err) {
+      console.error('Photo upload/analysis failed:', err);
+      toast.error(err?.message || 'Failed to upload or analyze photo. Please try again.');
+    } finally {
+      setProgress('');
+      setAnalyzing(false);
+
+      // Revoke any object URLs used for previews to avoid memory leaks
+      if (slots && typeof slots === 'object') {
+        Object.values(slots).forEach(slot => {
+          if (slot && typeof slot === 'object' && slot.previewUrl) {
+            URL.revokeObjectURL(slot.previewUrl);
+          }
+        });
+      }
+
+      setSlots({});
+    }
   };
 
   return (

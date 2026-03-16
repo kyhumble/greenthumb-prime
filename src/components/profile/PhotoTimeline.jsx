@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Leaf, Upload, X, Loader2, Camera, ZoomIn } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 const IMAGE_TYPE_LABELS = {
   whole_plant: '🌿 Full Plant', leaf: '🍃 Leaves', roots: '🪴 Stem/Base',
@@ -40,16 +41,22 @@ export default function PhotoTimeline({ images, plantId, plant, onUploaded }) {
     const file = e.target.files[0];
     if (!file) return;
     setUploading(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    await base44.entities.PlantImage.create({
-      image_url: file_url,
-      plant_id: plantId,
-      image_type: 'whole_plant',
-    });
-    queryClient.invalidateQueries({ queryKey: ['plantImages', plantId] });
-    if (onUploaded) onUploaded();
-    setUploading(false);
-    e.target.value = '';
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      await base44.entities.PlantImage.create({
+        image_url: file_url,
+        plant_id: plantId,
+        image_type: 'whole_plant',
+      });
+      queryClient.invalidateQueries({ queryKey: ['plantImages', plantId] });
+      if (onUploaded) onUploaded();
+    } catch (err) {
+      console.error('Photo upload failed:', err);
+      toast.error(err?.message || 'Failed to upload photo. Please try again.');
+    } finally {
+      setUploading(false);
+      e.target.value = '';
+    }
   };
 
   const grouped = groupByMonth([...images].sort((a, b) => new Date(a.created_date) - new Date(b.created_date)));
