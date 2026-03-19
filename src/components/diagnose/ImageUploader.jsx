@@ -135,6 +135,13 @@ Provide a detailed analysis with these fields:
         <p className="text-xs text-gray-400">More angles = more accurate diagnosis. Upload at least one photo to get started.</p>
       </div>
 
+      <div className="flex items-start gap-2 bg-[#F0F7F4] border border-[#52796F]/20 rounded-xl p-3">
+        <Camera className="w-4 h-4 text-[#52796F] mt-0.5 flex-shrink-0" />
+        <p className="text-xs text-gray-600">
+          GreenThumb Pro uses your camera to scan plants and identify species, diseases, and health issues.
+        </p>
+      </div>
+
       <p className="text-xs text-gray-500">Add photos from different angles for a more accurate diagnosis</p>
 
       {/* Photo slots */}

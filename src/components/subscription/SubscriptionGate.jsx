@@ -22,7 +22,7 @@ export default function SubscriptionGate({ user, children }) {
         </div>
         <h2 className="text-xl font-bold text-[#1B4332] mb-2">Premium Feature</h2>
         <p className="text-gray-500 text-sm mb-6">
-          This feature requires a GreenThumb Prime subscription. Start your 7-day free trial today.
+          This feature requires a GreenThumb Pro subscription. Start your 7-day free trial today.
         </p>
         <Link to="/Pricing">
           <Button className="bg-[#1B4332] hover:bg-[#2D6A4F] gap-2">
