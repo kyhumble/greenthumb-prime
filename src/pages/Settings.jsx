@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Loader2, Save, User, Trash2, FileText, Shield } from 'lucide-react';
+import { Loader2, Save, User, Trash2, FileText, Shield, Zap, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function Settings() {
@@ -116,6 +116,44 @@ export default function Settings() {
           {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
           Save Settings
         </Button>
+      </div>
+
+      {/* Subscription */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-5 mt-6">
+        <h2 className="text-sm font-semibold text-gray-700 mb-3">Subscription</h2>
+        {user && ['active', 'trialing'].includes(user.subscription_status) ? (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
+                <Zap className="w-4 h-4 text-emerald-600" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#1B4332]">GreenThumb Prime</p>
+                <p className="text-xs text-gray-500 capitalize">{user.subscription_status === 'trialing' ? 'Free trial active' : 'Active subscription'}</p>
+              </div>
+            </div>
+            <Link to="/Pricing">
+              <Button variant="outline" size="sm" className="text-xs">Manage</Button>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gray-50 flex items-center justify-center">
+                <CreditCard className="w-4 h-4 text-gray-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-700">Free Plan</p>
+                <p className="text-xs text-gray-500">Upgrade to unlock all features</p>
+              </div>
+            </div>
+            <Link to="/Pricing">
+              <Button size="sm" className="bg-[#1B4332] hover:bg-[#2D6A4F] text-xs h-8 gap-1">
+                <Zap className="w-3 h-3" /> Upgrade
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Legal */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, LogOut } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 
 const ROOT_PATHS = ['/Dashboard', '/Plants', '/Diagnose', '/Schedule', '/Encyclopedia'];
 
@@ -32,22 +33,31 @@ export default function MobileHeader() {
             <ArrowLeft className="w-5 h-5 text-[#1B4332]" />
           </button>
         )}
-        {isRoot ? (
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg overflow-hidden flex-shrink-0">
-              <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png"
-                alt="GreenThumb Prime"
-                className="w-full h-full object-cover"
-              />
+        <div className="flex-1">
+          {isRoot ? (
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg overflow-hidden flex-shrink-0">
+                <img
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png"
+                  alt="GreenThumb Prime"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="font-semibold text-sm text-[#1B4332]">GreenThumb Prime</span>
             </div>
-            <span className="font-semibold text-sm text-[#1B4332]">GreenThumb Prime</span>
-          </div>
-        ) : (
-          <span className="font-semibold text-[#1B4332]">
-            {PAGE_TITLES[location.pathname] || ''}
-          </span>
-        )}
+          ) : (
+            <span className="font-semibold text-[#1B4332]">
+              {PAGE_TITLES[location.pathname] || ''}
+            </span>
+          )}
+        </div>
+        <button
+          onClick={() => base44.auth.logout()}
+          className="ml-2 p-1.5 rounded-lg active:bg-gray-100 text-gray-400"
+          aria-label="Sign out"
+        >
+          <LogOut className="w-5 h-5" />
+        </button>
       </div>
     </header>
   );
