@@ -33,11 +33,11 @@ export default function Landing() {
           <div className="w-9 h-9 rounded-xl overflow-hidden">
             <img
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png"
-              alt="GreenThumb Professional"
+              alt="GreenThumb Pro"
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="font-bold text-[#1B4332] text-lg">GreenThumb Professional</span>
+          <span className="font-bold text-[#1B4332] text-lg">GreenThumb Pro</span>
         </div>
         <Button onClick={handleLogin} className="bg-[#1B4332] hover:bg-[#2D6A4F] rounded-full px-6">
           Sign In
@@ -54,7 +54,7 @@ export default function Landing() {
           <span className="text-[#52796F]">expert-level care.</span>
         </h1>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-          GreenThumb Professional uses AI to diagnose plant problems, build personalized care plans, and help your garden thrive — season after season.
+          GreenThumb Pro uses AI to diagnose plant problems, build personalized care plans, and help your garden thrive — season after season.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button
@@ -110,7 +110,7 @@ export default function Landing() {
       <section className="max-w-7xl mx-auto px-6 md:px-12 pb-24">
         <div className="bg-[#1B4332] rounded-3xl p-10 md:p-16 text-center text-white">
           <h2 className="text-2xl md:text-4xl font-bold mb-4">Ready to grow smarter?</h2>
-          <p className="text-white/70 mb-8 text-lg">Join plant lovers who trust GreenThumb Professional for expert AI care.</p>
+          <p className="text-white/70 mb-8 text-lg">Join plant lovers who trust GreenThumb Pro for expert AI care.</p>
           <Button
             onClick={handleLogin}
             size="lg"
@@ -129,12 +129,12 @@ export default function Landing() {
           <a href="mailto:support@greenthumb.app" className="hover:text-[#52796F] transition-colors">Contact</a>
         </div>
         <p className="text-xs text-gray-300 mt-1">
-          By using GreenThumb Professional, you agree to our{' '}
+          By using GreenThumb Pro, you agree to our{' '}
           <Link to="/TermsOfService" className="underline hover:text-[#52796F] transition-colors">Terms of Service</Link>{' '}
           and{' '}
           <Link to="/PrivacyPolicy" className="underline hover:text-[#52796F] transition-colors">Privacy Policy</Link>.
         </p>
-        <p className="mt-2">© 2026 GreenThumb Professional. All rights reserved.</p>
+        <p className="mt-2">© 2026 GreenThumb Pro. All rights reserved.</p>
       </footer>
     </div>
   );

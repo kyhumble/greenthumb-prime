@@ -72,7 +72,7 @@ const AuthenticatedApp = () => {
       <div className="fixed inset-0 flex items-center justify-center bg-[#FDF8F0]">
         <div className="text-center">
           <div className="w-10 h-10 border-4 border-[#52796F]/20 border-t-[#52796F] rounded-full animate-spin mx-auto"></div>
-          <p className="text-sm text-[#52796F] mt-3">Loading GreenThumb Professional...</p>
+          <p className="text-sm text-[#52796F] mt-3">Loading GreenThumb Pro...</p>
         </div>
       </div>
     );

@@ -13,11 +13,11 @@ export default function PrivacyPolicy() {
           <div className="w-9 h-9 rounded-xl overflow-hidden">
             <img
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png"
-              alt="GreenThumb Professional"
+              alt="GreenThumb Pro"
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="font-bold text-[#1B4332] text-lg">GreenThumb Professional</span>
+          <span className="font-bold text-[#1B4332] text-lg">GreenThumb Pro</span>
         </div>
         <Link to="/Landing" className="flex items-center gap-1.5 text-sm text-[#52796F] hover:text-[#1B4332] transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back
@@ -38,9 +38,9 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-xl font-semibold text-[#1B4332] mb-3">1. Introduction</h2>
               <p>
-                Welcome to GreenThumb Professional (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your privacy and
+                Welcome to GreenThumb Pro (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your privacy and
                 handling your personal data with transparency and care. This Privacy Policy explains how we collect,
-                use, disclose, and safeguard your information when you use the GreenThumb Professional application
+                use, disclose, and safeguard your information when you use the GreenThumb Pro application
                 (the &quot;App&quot;).
               </p>
               <p className="mt-3">
@@ -178,7 +178,7 @@ export default function PrivacyPolicy() {
                 please contact us at:
               </p>
               <div className="mt-3 bg-[#F0F7F4] rounded-xl p-4">
-                <p className="font-semibold text-[#1B4332]">GreenThumb Professional</p>
+                <p className="font-semibold text-[#1B4332]">GreenThumb Pro</p>
                 <p>Email: <a href="mailto:privacy@greenthumb.app" className="text-[#52796F] hover:underline">privacy@greenthumb.app</a></p>
                 <p>Support: <a href="mailto:support@greenthumb.app" className="text-[#52796F] hover:underline">support@greenthumb.app</a></p>
               </div>
@@ -194,7 +194,7 @@ export default function PrivacyPolicy() {
           <Link to="/TermsOfService" className="hover:text-[#52796F] transition-colors">Terms of Service</Link>
           <a href="mailto:support@greenthumb.app" className="hover:text-[#52796F] transition-colors">Contact</a>
         </div>
-        © 2026 GreenThumb Professional. All rights reserved.
+        © 2026 GreenThumb Pro. All rights reserved.
       </footer>
     </div>
   );

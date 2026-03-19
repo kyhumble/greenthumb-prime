@@ -39,11 +39,11 @@ export default function MobileHeader() {
               <div className="w-7 h-7 rounded-lg overflow-hidden flex-shrink-0">
                 <img
                   src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png"
-                  alt="GreenThumb Prime"
+                  alt="GreenThumb Pro"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="font-semibold text-sm text-[#1B4332]">GreenThumb Prime</span>
+              <span className="font-semibold text-sm text-[#1B4332]">GreenThumb Pro</span>
             </div>
           ) : (
             <span className="font-semibold text-[#1B4332]">

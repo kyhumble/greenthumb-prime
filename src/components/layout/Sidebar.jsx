@@ -45,10 +45,10 @@ export default function Sidebar({ collapsed = false, onCollapse }) {
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 h-16 border-b border-white/10">
         <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0">
-          <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png" alt="GreenThumb Professional" className="w-full h-full object-cover" />
+          <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png" alt="GreenThumb Pro" className="w-full h-full object-cover" />
         </div>
         {!collapsed && (
-          <span className="font-semibold text-sm tracking-wide whitespace-nowrap">GreenThumb Professional</span>
+          <span className="font-semibold text-sm tracking-wide whitespace-nowrap">GreenThumb Pro</span>
         )}
       </div>
 

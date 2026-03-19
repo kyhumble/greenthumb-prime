@@ -53,9 +53,9 @@ export default function Pricing() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-10 h-10 rounded-xl overflow-hidden">
-              <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png" alt="GreenThumb Professional" className="w-full h-full object-cover" />
+              <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png" alt="GreenThumb Pro" className="w-full h-full object-cover" />
             </div>
-            <span className="text-xl font-bold text-[#1B4332]">GreenThumb Professional</span>
+            <span className="text-xl font-bold text-[#1B4332]">GreenThumb Pro</span>
           </div>
           <h1 className="text-3xl font-bold text-[#1B4332] mb-2">Simple, transparent pricing</h1>
           <p className="text-gray-500">Start your 7-day free trial. Cancel anytime.</p>

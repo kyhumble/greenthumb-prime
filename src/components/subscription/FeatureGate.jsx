@@ -23,7 +23,7 @@ export default function FeatureGate({ user, children, featureName = 'This featur
           </div>
           <h2 className="text-xl font-bold text-[#1B4332] mb-2">{featureName} is a Pro feature</h2>
           <p className="text-gray-500 text-sm mb-6">
-            Upgrade to GreenThumb Professional to unlock AI diagnostics, growth analytics, learning tools, and more.
+            Upgrade to GreenThumb Pro to unlock AI diagnostics, growth analytics, learning tools, and more.
           </p>
           <Link to="/Pricing">
             <Button className="w-full bg-[#1B4332] hover:bg-[#2D6A4F] h-11">

@@ -13,11 +13,11 @@ export default function TermsOfService() {
           <div className="w-9 h-9 rounded-xl overflow-hidden">
             <img
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b58c93938d13c9af653602/39bf079b2_generated_image.png"
-              alt="GreenThumb Professional"
+              alt="GreenThumb Pro"
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="font-bold text-[#1B4332] text-lg">GreenThumb Professional</span>
+          <span className="font-bold text-[#1B4332] text-lg">GreenThumb Pro</span>
         </div>
         <Link to="/Landing" className="flex items-center gap-1.5 text-sm text-[#52796F] hover:text-[#1B4332] transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back
@@ -38,16 +38,16 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-xl font-semibold text-[#1B4332] mb-3">1. Acceptance of Terms</h2>
               <p>
-                By accessing or using GreenThumb Professional (the &quot;App&quot;), you agree to be bound by these Terms of Service
+                By accessing or using GreenThumb Pro (the &quot;App&quot;), you agree to be bound by these Terms of Service
                 (&quot;Terms&quot;) and our Privacy Policy. If you do not agree to these Terms, please do not use the App.
-                These Terms constitute a legally binding agreement between you and GreenThumb Professional (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;).
+                These Terms constitute a legally binding agreement between you and GreenThumb Pro (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;).
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-[#1B4332] mb-3">2. Description of Service</h2>
               <p>
-                GreenThumb Professional is an AI-powered plant care management application that provides:
+                GreenThumb Pro is an AI-powered plant care management application that provides:
               </p>
               <ul className="list-disc list-inside space-y-1 ml-2 mt-2">
                 <li>Plant collection management and tracking</li>
@@ -91,7 +91,7 @@ export default function TermsOfService() {
               </p>
               <h3 className="text-base font-semibold text-[#2D6A4F] mb-2 mt-4">4.2 Pro Subscription</h3>
               <p>
-                GreenThumb Professional Pro is available for $9.99 per month, which includes a 7-day free trial for new subscribers.
+                GreenThumb Pro is available for $9.99 per month, which includes a 7-day free trial for new subscribers.
                 Pro subscribers get access to unlimited plant profiles, all AI diagnostic tools, advanced analytics, and all 7 AI specialist agents.
               </p>
               <h3 className="text-base font-semibold text-[#2D6A4F] mb-2 mt-4">4.3 Billing</h3>
@@ -157,7 +157,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-xl font-semibold text-[#1B4332] mb-3">8. Intellectual Property</h2>
               <p>
-                The App and its original content, features, and functionality are owned by GreenThumb Professional and
+                The App and its original content, features, and functionality are owned by GreenThumb Pro and
                 are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.
                 You may not copy, modify, distribute, sell, or lease any part of the App without our prior written consent.
               </p>
@@ -175,7 +175,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-xl font-semibold text-[#1B4332] mb-3">10. Limitation of Liability</h2>
               <p>
-                To the maximum extent permitted by applicable law, GreenThumb Professional shall not be liable for any
+                To the maximum extent permitted by applicable law, GreenThumb Pro shall not be liable for any
                 indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of
                 profits, data, or goodwill, arising from your use of or inability to use the App.
               </p>
@@ -218,7 +218,7 @@ export default function TermsOfService() {
                 If you have any questions about these Terms, please contact us:
               </p>
               <div className="mt-3 bg-[#F0F7F4] rounded-xl p-4">
-                <p className="font-semibold text-[#1B4332]">GreenThumb Professional</p>
+                <p className="font-semibold text-[#1B4332]">GreenThumb Pro</p>
                 <p>Email: <a href="mailto:legal@greenthumb.app" className="text-[#52796F] hover:underline">legal@greenthumb.app</a></p>
                 <p>Support: <a href="mailto:support@greenthumb.app" className="text-[#52796F] hover:underline">support@greenthumb.app</a></p>
               </div>
@@ -234,7 +234,7 @@ export default function TermsOfService() {
           <Link to="/TermsOfService" className="hover:text-[#52796F] transition-colors">Terms of Service</Link>
           <a href="mailto:support@greenthumb.app" className="hover:text-[#52796F] transition-colors">Contact</a>
         </div>
-        © 2026 GreenThumb Professional. All rights reserved.
+        © 2026 GreenThumb Pro. All rights reserved.
       </footer>
     </div>
   );

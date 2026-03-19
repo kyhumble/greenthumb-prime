@@ -128,7 +128,7 @@ export default function Settings() {
                 <Zap className="w-4 h-4 text-emerald-600" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#1B4332]">GreenThumb Prime</p>
+                <p className="text-sm font-semibold text-[#1B4332]">GreenThumb Pro</p>
                 <p className="text-xs text-gray-500 capitalize">{user.subscription_status === 'trialing' ? 'Free trial active' : 'Active subscription'}</p>
               </div>
             </div>
