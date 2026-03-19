@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, LogOut } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import { useAuth } from '@/lib/AuthContext';
 
 const ROOT_PATHS = ['/Dashboard', '/Plants', '/Diagnose', '/Schedule', '/Encyclopedia'];
 
@@ -17,6 +17,7 @@ const PAGE_TITLES = {
 export default function MobileHeader() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const isRoot = ROOT_PATHS.some(p => location.pathname === p);
 
   return (
@@ -52,7 +53,7 @@ export default function MobileHeader() {
           )}
         </div>
         <button
-          onClick={() => base44.auth.logout()}
+          onClick={() => logout()}
           className="ml-2 p-1.5 rounded-lg active:bg-gray-100 text-gray-400"
           aria-label="Sign out"
         >

@@ -108,7 +108,7 @@ export default function WeatherAlertsWidget({ plants }) {
               <div>
                 <p className="text-sm font-semibold text-[#1B4332] mb-1">Enable Weather Alerts?</p>
                 <p className="text-xs text-gray-500">
-                  Your location is used to recommend plants and care schedules tailored to your local climate.
+                  Your location is used to provide weather-based care alerts for your outdoor plants.
                   Your location is only used to fetch local weather data and is not stored on our servers.
                 </p>
               </div>
