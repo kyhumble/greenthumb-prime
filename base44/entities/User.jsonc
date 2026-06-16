@@ -1,0 +1,94 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "default": "user"
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "trialing",
+        "active",
+        "past_due",
+        "canceled",
+        "none"
+      ],
+      "default": "none",
+      "description": "Stripe subscription status"
+    },
+    "stripe_customer_id": {
+      "type": "string",
+      "description": "Stripe customer ID"
+    },
+    "stripe_subscription_id": {
+      "type": "string",
+      "description": "Stripe subscription ID"
+    },
+    "trial_used": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the user has already used their free trial"
+    },
+    "experience_level": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced",
+        "expert"
+      ],
+      "description": "Gardening experience level"
+    },
+    "growing_zone": {
+      "type": "string",
+      "description": "USDA hardiness zone"
+    },
+    "location": {
+      "type": "string",
+      "description": "City or region"
+    },
+    "primary_garden_type": {
+      "type": "string",
+      "enum": [
+        "indoor",
+        "outdoor",
+        "mixed",
+        "greenhouse"
+      ],
+      "description": "Primary gardening environment"
+    },
+    "learning_mode": {
+      "type": "string",
+      "enum": [
+        "quick_fix",
+        "mastery"
+      ],
+      "default": "quick_fix",
+      "description": "Preferred learning/diagnosis mode"
+    },
+    "bio": {
+      "type": "string",
+      "description": "About me / gardening notes"
+    },
+    "email_notifications": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to receive daily email care reminders"
+    }
+  },
+  "required": [
+    "stripe_customer_id",
+    "stripe_subscription_id",
+    "experience_level",
+    "growing_zone",
+    "location",
+    "primary_garden_type",
+    "bio"
+  ]
+}

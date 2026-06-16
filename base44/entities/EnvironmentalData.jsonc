@@ -1,0 +1,108 @@
+{
+  "name": "EnvironmentalData",
+  "type": "object",
+  "properties": {
+    "plant_id": {
+      "type": "string",
+      "description": "Related plant ID"
+    },
+    "temperature": {
+      "type": "number",
+      "description": "Temperature in Fahrenheit"
+    },
+    "humidity": {
+      "type": "number",
+      "description": "Humidity percentage"
+    },
+    "light_exposure": {
+      "type": "string",
+      "enum": [
+        "full_sun",
+        "partial_sun",
+        "partial_shade",
+        "full_shade",
+        "artificial"
+      ],
+      "description": "Light exposure level"
+    },
+    "soil_moisture_estimate": {
+      "type": "string",
+      "enum": [
+        "dry",
+        "slightly_moist",
+        "moist",
+        "wet",
+        "waterlogged"
+      ],
+      "description": "Soil moisture estimate"
+    },
+    "weather_alerts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Active weather alerts"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of reading"
+    }
+  },
+  "required": [
+    "plant_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

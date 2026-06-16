@@ -1,0 +1,78 @@
+{
+  "name": "WateringSchedule",
+  "type": "object",
+  "properties": {
+    "plant_id": {
+      "type": "string",
+      "description": "Related plant ID"
+    },
+    "frequency_days": {
+      "type": "number",
+      "description": "How often to water in days"
+    },
+    "last_watered_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last watering date"
+    },
+    "light_condition": {
+      "type": "string",
+      "enum": [
+        "full_sun",
+        "partial_sun",
+        "partial_shade",
+        "full_shade",
+        "artificial"
+      ],
+      "description": "Current light exposure"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Care notes from AI"
+    }
+  },
+  "required": [
+    "plant_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

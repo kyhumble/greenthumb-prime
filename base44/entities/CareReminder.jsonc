@@ -1,0 +1,105 @@
+{
+  "name": "CareReminder",
+  "type": "object",
+  "properties": {
+    "plant_id": {
+      "type": "string",
+      "description": "Related plant ID"
+    },
+    "care_type": {
+      "type": "string",
+      "enum": [
+        "watering",
+        "fertilizing",
+        "repotting",
+        "pruning",
+        "pest_treatment",
+        "misting",
+        "other"
+      ],
+      "description": "Type of care task"
+    },
+    "frequency_days": {
+      "type": "number",
+      "description": "Repeat every N days"
+    },
+    "next_due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Next due date"
+    },
+    "last_completed_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last completed"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Care notes"
+    },
+    "is_active": {
+      "type": "boolean",
+      "description": "Whether reminder is active",
+      "default": true
+    }
+  },
+  "required": [
+    "plant_id",
+    "care_type",
+    "frequency_days",
+    "next_due_date"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

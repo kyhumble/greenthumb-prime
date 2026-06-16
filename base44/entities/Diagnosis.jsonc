@@ -1,0 +1,133 @@
+{
+  "name": "Diagnosis",
+  "type": "object",
+  "properties": {
+    "plant_id": {
+      "type": "string",
+      "description": "Related plant ID"
+    },
+    "diagnosis_type": {
+      "type": "string",
+      "enum": [
+        "pest",
+        "disease",
+        "nutrient_deficiency",
+        "water_stress",
+        "light_stress",
+        "environmental",
+        "general_health",
+        "soil_issue"
+      ],
+      "description": "Type of diagnosis"
+    },
+    "observations": {
+      "type": "string",
+      "description": "What the AI observed"
+    },
+    "likely_cause": {
+      "type": "string",
+      "description": "Most likely cause"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "Confidence in diagnosis (0-100)"
+    },
+    "confirmation_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Steps to confirm this diagnosis"
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Recommended treatment actions"
+    },
+    "expected_recovery_time": {
+      "type": "string",
+      "description": "Expected recovery timeline"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "description": "Severity level"
+    },
+    "quick_fix": {
+      "type": "string",
+      "description": "Quick fix summary for Quick Fix mode"
+    },
+    "detailed_explanation": {
+      "type": "string",
+      "description": "Detailed scientific explanation for Mastery mode"
+    },
+    "image_id": {
+      "type": "string",
+      "description": "Related image ID that triggered this diagnosis"
+    }
+  },
+  "required": [
+    "plant_id",
+    "diagnosis_type"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "name": "Plant",
+  "type": "object",
+  "properties": {
+    "plant_name": {
+      "type": "string",
+      "description": "Common name of the plant"
+    },
+    "species": {
+      "type": "string",
+      "description": "Species name"
+    },
+    "scientific_name": {
+      "type": "string",
+      "description": "Scientific/botanical name"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "AI identification confidence (0-100)"
+    },
+    "plant_category": {
+      "type": "string",
+      "enum": [
+        "houseplant",
+        "succulent",
+        "herb",
+        "vegetable",
+        "fruit",
+        "flower",
+        "tree",
+        "shrub",
+        "vine",
+        "fern",
+        "grass",
+        "other"
+      ],
+      "description": "Category of plant"
+    },
+    "location": {
+      "type": "string",
+      "enum": [
+        "indoor",
+        "outdoor",
+        "greenhouse"
+      ],
+      "description": "Where the plant is kept"
+    },
+    "planting_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When the plant was planted or acquired"
+    },
+    "growth_stage": {
+      "type": "string",
+      "enum": [
+        "seedling",
+        "vegetative",
+        "budding",
+        "flowering",
+        "fruiting",
+        "dormant",
+        "mature"
+      ],
+      "description": "Current growth stage"
+    },
+    "health_score": {
+      "type": "number",
+      "description": "Overall health score (0-100)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Primary plant image URL"
+    }
+  },
+  "required": [
+    "plant_name"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

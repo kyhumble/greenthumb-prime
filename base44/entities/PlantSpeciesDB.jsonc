@@ -1,0 +1,120 @@
+{
+  "name": "PlantSpeciesDB",
+  "type": "object",
+  "properties": {
+    "common_name": {
+      "type": "string",
+      "description": "Common name of the plant"
+    },
+    "scientific_name": {
+      "type": "string",
+      "description": "Scientific/botanical name"
+    },
+    "family": {
+      "type": "string",
+      "description": "Plant family"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "houseplant",
+        "succulent",
+        "herb",
+        "vegetable",
+        "fruit",
+        "flower",
+        "tree",
+        "shrub",
+        "vine",
+        "fern",
+        "grass",
+        "other"
+      ],
+      "description": "Plant category"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Primary reference image URL"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "Thumbnail image URL"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief species description"
+    },
+    "native_region": {
+      "type": "string",
+      "description": "Native geographic region"
+    },
+    "watering": {
+      "type": "string",
+      "enum": [
+        "low",
+        "moderate",
+        "high"
+      ],
+      "description": "Water needs"
+    },
+    "light": {
+      "type": "string",
+      "enum": [
+        "full_sun",
+        "partial_sun",
+        "partial_shade",
+        "full_shade",
+        "artificial"
+      ],
+      "description": "Light requirements"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "moderate",
+        "hard"
+      ],
+      "description": "Care difficulty"
+    },
+    "toxic_to_pets": {
+      "type": "boolean",
+      "description": "Whether toxic to pets"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Searchable tags"
+    }
+  },
+  "required": [
+    "common_name",
+    "scientific_name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "id": {
+          "$ne": null
+        }
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

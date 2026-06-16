@@ -1,0 +1,89 @@
+{
+  "name": "PestDiseaseEntry",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of pest or disease"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "pest",
+        "fungal_disease",
+        "bacterial_disease",
+        "viral_disease",
+        "nutrient_deficiency",
+        "environmental_stress"
+      ],
+      "description": "Category"
+    },
+    "symptoms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of symptoms"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Reference image"
+    },
+    "lifecycle_description": {
+      "type": "string",
+      "description": "Lifecycle information"
+    },
+    "treatment_options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Treatment methods"
+    },
+    "prevention_methods": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Prevention methods"
+    },
+    "affected_plants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Commonly affected plant types"
+    }
+  },
+  "required": [
+    "name",
+    "category"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "user_condition": {
+        "id": {
+          "$ne": null
+        }
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

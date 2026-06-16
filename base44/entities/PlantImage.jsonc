@@ -1,0 +1,93 @@
+{
+  "name": "PlantImage",
+  "type": "object",
+  "properties": {
+    "image_url": {
+      "type": "string",
+      "description": "Uploaded image URL"
+    },
+    "plant_id": {
+      "type": "string",
+      "description": "Related plant ID"
+    },
+    "image_type": {
+      "type": "string",
+      "enum": [
+        "whole_plant",
+        "leaf",
+        "soil",
+        "roots",
+        "pest",
+        "garden_bed",
+        "light_assessment"
+      ],
+      "description": "Type of image"
+    },
+    "ai_analysis_result": {
+      "type": "string",
+      "description": "Full AI analysis result text"
+    },
+    "stress_indicators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Detected stress indicators"
+    },
+    "ai_confidence": {
+      "type": "number",
+      "description": "AI confidence in analysis (0-100)"
+    },
+    "diagnosis_summary": {
+      "type": "string",
+      "description": "Brief diagnosis summary"
+    },
+    "species_identified": {
+      "type": "string",
+      "description": "Species identified by AI"
+    }
+  },
+  "required": [
+    "image_url",
+    "plant_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "created_by": "{{user.email}}"
+        }
+      ]
+    }
+  }
+}
