@@ -31,3 +31,4 @@ dist-ssr
 # Environment files
 *.env
 *.env.*
+base44/.app.jsonc
